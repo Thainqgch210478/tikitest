@@ -86,19 +86,22 @@ class ProductController extends AbstractController
         if($form->isSubmitted()&&$form->isValid()){
             //B1: lấy ra ảnh vừa upload
             $img1 = $form->get('image1')->getData();
+            
             //B2: set tên mới cho ảnh => đảm bảo tên ảnh là duy nhất trong thư mục
             $imgName1 = uniqid(); //uniqid : tạo ra string duy nhất
             //B3: lấy ra đuôi (extension) của ảnh
             //Yêu cầu cần thay đổi code của entity Book
             $imgExtension1 = $img1->guessExtension();
             //B4: hoàn thiện tên mới cho ảnh (giữ đuôi cũ và thay tên mới)
-            $imageName1 = $imgName1 . "." . $imgExtension1;
+            $nameFirst = pathinfo($img1->getClientOriginalName(), PATHINFO_FILENAME);
+            $imageName1 = $nameFirst .$imgName1. "." . $imgExtension1;
             //VD: greenwich.jpg 
             //B5: di chuyển ảnh về thư mục chỉ định trong project
             try {
                 $img1->move(
                 $this->getParameter('product_image'),
-                $imgName1
+                // $imgName1
+                $imageName1
                 //di chuyển file ảnh upload về thư mục cùng với tên mới
                 //note: cầu hình parameter trong file services.yaml
                 );
@@ -147,7 +150,7 @@ class ProductController extends AbstractController
             try {
                 $img3->move(
                 $this->getParameter('product_image'),
-                $imgName1
+                // $imgName1
                 //di chuyển file ảnh upload về thư mục cùng với tên mới
                 //note: cầu hình parameter trong file services.yaml
                 );

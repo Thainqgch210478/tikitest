@@ -28,7 +28,10 @@ class ProductType extends AbstractType
                 'mapped'=>false,
                 'label'=>'Select an image',
                 'multiple'=>false,
-                'required' => is_null ($builder->getData()->getImage1())
+                
+                'required' => is_null ($builder->getData()->getImage1()),
+                
+                
             ])
             ->add('image2', FileType::class, [
                 'mapped'=>false,
