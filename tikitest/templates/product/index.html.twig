@@ -1,20 +1,34 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello ProductController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/Greenwich/NGUYEN QUANG THAI/Semester 3/Project Web/Gihub/TikiTest/tikitest/tikitest/src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/Greenwich/NGUYEN QUANG THAI/Semester 3/Project Web/Gihub/TikiTest/tikitest/tikitest/templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
-    </ul>
-</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Menu</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products %}
+    <tr>
+      <td>{{product.id}}</td>
+      <td><img src="{{product.image1}}" alt="" srcset="" width='150' height='180'></td>
+      <td>{{product.name}}</td>
+      <td>{{product.categoryid.name}}</td>
+      <td>{{product.brandid.name}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price}}VND</td>
+      <td>
+        <a href="{{path('app_edit_product', {'id': product.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+        <a href="{{path('app_delete_product', {'id': product.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}
