@@ -93,14 +93,14 @@ class ProductController extends AbstractController
             //Yêu cầu cần thay đổi code của entity Book
             $imgExtension1 = $img1->guessExtension();
             //B4: hoàn thiện tên mới cho ảnh (giữ đuôi cũ và thay tên mới)
-            $nameFirst = pathinfo($img1->getClientOriginalName(), PATHINFO_FILENAME);
-            $imageName1 = $nameFirst .$imgName1. "." . $imgExtension1;
+            
+            $imageName1 = $imgName1. "." . $imgExtension1;
             //VD: greenwich.jpg 
             //B5: di chuyển ảnh về thư mục chỉ định trong project
             try {
                 $img1->move(
                 $this->getParameter('product_image'),
-                // $imgName1
+                // $imgName1 sai tên file nên sẽ lấy phần tên tưj tạo từ uniqid
                 $imageName1
                 //di chuyển file ảnh upload về thư mục cùng với tên mới
                 //note: cầu hình parameter trong file services.yaml
