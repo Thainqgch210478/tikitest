@@ -27,16 +27,21 @@ class ProductType extends AbstractType
             ->add('image1', FileType::class, [
                 'mapped'=>false,
                 'label'=>'Select an image',
-                'multiple'=>false
+                'multiple'=>false,
+                'required' => is_null ($builder->getData()->getImage1())
             ])
             ->add('image2', FileType::class, [
                 'mapped'=>false,
                 'label'=>'Select an image',
-                'multiple'=>false])
+                'multiple'=>false,
+                'required' => is_null ($builder->getData()->getImage2())
+                ])
             ->add('image3', FileType::class, [
                 'mapped'=>false,
                 'label'=>'Select an image',
-                'multiple'=>false])
+                'multiple'=>false,
+                'required' => is_null ($builder->getData()->getImage3())
+                ])
             ->add('categoryid', EntityType::class, [
                 'class'=>Category::class,
                 'choice_label'=>'name',

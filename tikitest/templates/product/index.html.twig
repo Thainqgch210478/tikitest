@@ -1,5 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'headerAdmin.html.twig' %}
 {% block body %}
+<a href="{{path('app_add_product')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Product</a>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -17,13 +18,14 @@
     {% for product in products %}
     <tr>
       <td>{{product.id}}</td>
-      <td><img src="{{product.image1}}" alt="" srcset="" width='150' height='180'></td>
+      <td><img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width='150' height='180'></td>
       <td>{{product.name}}</td>
       <td>{{product.categoryid.name}}</td>
       <td>{{product.brandid.name}}</td>
       <td>{{product.quantity}}</td>
       <td>{{product.price}}VND</td>
       <td>
+        <a href="{{path('app_view_product', {'id': product.id })}}}}"><i class="fa-solid fa-eye"></i></a>
         <a href="{{path('app_edit_product', {'id': product.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
         <a href="{{path('app_delete_product', {'id': product.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a>
       </td>
