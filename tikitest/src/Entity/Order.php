@@ -38,6 +38,10 @@ class Order
     #[ORM\OneToMany(mappedBy: 'orderid', targetEntity: OrderDetails::class)]
     private Collection $orderDetails;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $cusid = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -146,6 +150,18 @@ class Order
                 $orderDetail->setOrderid(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCusid(): ?User
+    {
+        return $this->cusid;
+    }
+
+    public function setCusid(?User $cusid): self
+    {
+        $this->cusid = $cusid;
 
         return $this;
     }
