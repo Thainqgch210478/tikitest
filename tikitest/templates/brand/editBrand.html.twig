@@ -36,21 +36,21 @@ Sort
     {% endfor %}
   </tbody>
 </table>
-<form action="{{ path ('app_add_brand')}}"  method="post">
+<form action="{{ path ('app_edit_brand', {'id': brand.id })}}"  method="post">
 <div class="container">
     Brand Name
-    <input type="text" name='brandName' placeholder='Add Brand Name' required >
-    <input
+    <input type="text" name='brandName' placeholder='Add Category Name' required value="{{brand.name}}" >
+        <input
                 type="file"
                 name="imageBrand"
                 accept="image/jpg, image/jpeg, image/png, image/webp"
                 class="box-input"
+                required
               />
-    <input type="submit" value="Add">
+    <input type="submit" value="Update">
 </div>
 </form>
 </div>
 
 {% endblock %}
-
 
