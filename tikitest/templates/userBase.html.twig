@@ -17,7 +17,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body style="background-color:#f7f4f7">
     <nav class="navbar " style="background-color:#0082ff">
             <!-- Navbar content -->
             <div class="container">
@@ -39,13 +39,25 @@
                 </div>
   
             </div>
-            
         </nav>
+        <div class="container" width="4544" height="1519">
+            <div class="row">
+			    <div class="left col-lg-1"></div>
 
-        {% block body %}
+                    <div class="right col-lg-11">				
+				       
+                    {% block body %}
         
 
 
-        {% endblock %}
+                    {% endblock %}
+                    
+                    </div>
+                <div class="row">
+			    <div class="left col-lg-1"></div>
+                </div>
+
+            </div>
+        </div>
     </body>
 </html>

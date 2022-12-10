@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,10 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/view', name: 'app_user_product')]
-    public function index(): Response
+    public function allProduct(ProductRepository $respository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        return $this->render('product/viewUserProduct.html.twig', [
+            'products' => $respository->findAll(),
         ]);
     }
 }

@@ -1,0 +1,33 @@
+{% extends 'userBase.html.twig' %}
+
+
+
+{% block body %}
+
+
+
+            <div class="col-lg-10 mt-3 ">
+	            <div class="row" >
+                    {% for product in products %}
+                        <div class="col-sm-2 "    >
+                            <div class="rounded-3" style="background-color:white "  width = "200" height='388'>
+                                    <div >
+                                        <a href=" ">
+                                            <img  src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width='213' height='200'>
+                                        </a>
+                                    </div>
+                                    <div style="color:#ff424e" ><h3>{{product.name}}</h3></div>
+                                    <div>{{product.price}}đ</div>
+                                    <div>{{product.price}}đ</div>
+                                    <div>{{product.price}}đ</div>
+                                    <div>{{product.price}}đ</div>
+
+                            </div>
+                        </div>    
+                    {% endfor %}                   
+                </div>
+            </div>
+   
+
+ 
+{% endblock %}
