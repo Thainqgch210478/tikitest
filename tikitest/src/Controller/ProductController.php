@@ -11,10 +11,15 @@ use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Controller\FileException;
 use App\Controller\throwException;
+// <<<<<<< HEAD
 use Symfony\Component\Validator\Constraints\Unique;
 
+// =======
+#[IsGranted("ROLE_ADMIN")]
+// >>>>>>> 7e3dce7b6d990311575507c43a6a0dcbaf5a5b3c
 #[Route('/product')]
 class ProductController extends AbstractController
 {

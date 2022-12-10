@@ -10,7 +10,6 @@ Sort
   <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Image</th>
       <th scope="col">Name</th>
       <th scope="col">Total Product</th>
       <th scope="col">Menu</th>
@@ -18,33 +17,31 @@ Sort
   </thead>
   <tbody>
   
-    {% for brand in brands %}
+    {% for category in categories %}
     {% set count = 0 %}
     <tr>
-      <td>{{brand.id}}</td>
-      <td><img src="{{brand.image}}" alt="" srcset="" width="100px" height="100px"></td>
-      <td>{{brand.name}}</td>
-      {% for product in brand.products %}
+      <td>{{category.id}}</td>
+      <td>{{category.name}}</td>
+      {% for product in category.products %}
             {% set count = count + 1 %}
       {% endfor %}
       <td>{{count}}</td>
       <td>
-        <a href="{{path('app_edit_brand', {'id': brand.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
-        <a href="{{path('app_delete_brand', {'id': brand.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a>
+        <a href="{{path('app_edit_category', {'id': category.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+        <a href="{{path('app_delete_category', {'id': category.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
-<form action="{{ path ('app_add_category')}}"  method="post">
+<form action="{{ path ('app_edit_category', {'id': category.id })}}"  method="post">
 <div class="container">
-    Brand Name
-    <input type="text" name='brandName' placeholder='Add Brand Name' required >
+    Category Name
+    <input type="text" name='categoryName' placeholder='Add Category Name' required value="{{category.name}}" >
     <input type="submit" value="Add">
 </div>
 </form>
 </div>
 
 {% endblock %}
-
 
