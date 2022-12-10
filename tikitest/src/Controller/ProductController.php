@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\FileException;
 use App\Controller\throwException;
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[Route('/product')]
 class ProductController extends AbstractController
@@ -75,6 +76,7 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product');
     }
 
+    
     #[Route('/add', name:'app_add_product')]
     public function addProduct(ManagerRegistry $managerRegistry, Request $request){
         $product = new Product;
@@ -82,7 +84,7 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->add('Submit', SubmitType::class);
         $form->handleRequest($request);
-
+       
         if($form->isSubmitted()&&$form->isValid()){
             //B1: lấy ra ảnh vừa upload
             $img1 = $form->get('image1')->getData();
