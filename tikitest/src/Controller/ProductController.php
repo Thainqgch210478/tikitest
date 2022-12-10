@@ -37,6 +37,23 @@ class ProductController extends AbstractController
             $form->handleRequest($request);
     
             if($form->isSubmitted() && $form->isValid()){
+                $img1 = $form->get('image1')->getData();
+                $fileName1 = md5(uniqid()).'.'.$img1->guessExtension(); 
+                $img1->move($this->getParameter('product_image'), $fileName1); 
+                $product->setImage1($fileName1);
+    
+    
+                $img2 = $form->get('image2')->getData();
+                $fileName2 = md5(uniqid()).'.'.$img2->guessExtension(); 
+                $img2->move($this->getParameter('product_image'), $fileName2); 
+                $product->setImage2($fileName2);
+    
+    
+                $img3 = $form->get('image3')->getData();
+                $fileName3 = md5(uniqid()).'.'.$img3->guessExtension(); 
+                $img3->move($this->getParameter('product_image'), $fileName3); 
+                $product->setImage3($fileName3);
+
                 $manager = $registry->getManager();
     
                 $manager->persist($product);
@@ -86,79 +103,21 @@ class ProductController extends AbstractController
         if($form->isSubmitted()&&$form->isValid()){
             //B1: lấy ra ảnh vừa upload
             $img1 = $form->get('image1')->getData();
-            
-            //B2: set tên mới cho ảnh => đảm bảo tên ảnh là duy nhất trong thư mục
-            $imgName1 = uniqid(); //uniqid : tạo ra string duy nhất
-            //B3: lấy ra đuôi (extension) của ảnh
-            //Yêu cầu cần thay đổi code của entity Book
-            $imgExtension1 = $img1->guessExtension();
-            //B4: hoàn thiện tên mới cho ảnh (giữ đuôi cũ và thay tên mới)
-            
-            $imageName1 = $imgName1. "." . $imgExtension1;
-            //VD: greenwich.jpg 
-            //B5: di chuyển ảnh về thư mục chỉ định trong project
-            try {
-                $img1->move(
-                $this->getParameter('product_image'),
-                // $imgName1 sai tên file nên sẽ lấy phần tên tưj tạo từ uniqid
-                $imageName1
-                //di chuyển file ảnh upload về thư mục cùng với tên mới
-                //note: cầu hình parameter trong file services.yaml
-                );
-            } catch (FileException $e) {
-                throwException($e);
-            }
-            //B6: set dữ liệu của image vào object book
-            $product->setImage1($imageName1);
+            $fileName1 = md5(uniqid()).'.'.$img1->guessExtension(); 
+            $img1->move($this->getParameter('product_image'), $fileName1); 
+            $product->setImage1($fileName1);
 
-            //B1: lấy ra ảnh vừa upload
+
             $img2 = $form->get('image2')->getData();
-            //B2: set tên mới cho ảnh => đảm bảo tên ảnh là duy nhất trong thư mục
-            $imgName2 = uniqid(); //uniqid : tạo ra string duy nhất
-            //B3: lấy ra đuôi (extension) của ảnh
-            //Yêu cầu cần thay đổi code của entity Book
-            $imgExtension2 = $img2->guessExtension();
-            //B4: hoàn thiện tên mới cho ảnh (giữ đuôi cũ và thay tên mới)
-            $imageName2 = $imgName2 . "." . $imgExtension2;
-            //VD: greenwich.jpg 
-            //B5: di chuyển ảnh về thư mục chỉ định trong project
-            try {
-                $img2->move(
-                $this->getParameter('product_image'),
-                $imgName2
-                //di chuyển file ảnh upload về thư mục cùng với tên mới
-                //note: cầu hình parameter trong file services.yaml
-                );
-            } catch (FileException $e) {
-                throwException($e);
-            }
-            //B6: set dữ liệu của image vào object book
-            $product->setImage2($imageName2);
+            $fileName2 = md5(uniqid()).'.'.$img2->guessExtension(); 
+            $img2->move($this->getParameter('product_image'), $fileName2); 
+            $product->setImage2($fileName2);
 
 
-            //B1: lấy ra ảnh vừa upload
             $img3 = $form->get('image3')->getData();
-            //B2: set tên mới cho ảnh => đảm bảo tên ảnh là duy nhất trong thư mục
-            $imgName3 = uniqid(); //uniqid : tạo ra string duy nhất
-            //B3: lấy ra đuôi (extension) của ảnh
-            //Yêu cầu cần thay đổi code của entity Book
-            $imgExtension3 = $img3->guessExtension();
-            //B4: hoàn thiện tên mới cho ảnh (giữ đuôi cũ và thay tên mới)
-            $imageName3 = $imgName3 . "." . $imgExtension3;
-            //VD: greenwich.jpg 
-            //B5: di chuyển ảnh về thư mục chỉ định trong project
-            try {
-                $img3->move(
-                $this->getParameter('product_image'),
-                // $imgName1
-                //di chuyển file ảnh upload về thư mục cùng với tên mới
-                //note: cầu hình parameter trong file services.yaml
-                );
-            } catch (FileException $e) {
-                throwException($e);
-            }
-            //B6: set dữ liệu của image vào object book
-            $product->setImage3($imageName3);
+            $fileName3 = md5(uniqid()).'.'.$img3->guessExtension(); 
+            $img3->move($this->getParameter('product_image'), $fileName3); 
+            $product->setImage3($fileName3);
 
             $manager = $managerRegistry->getManager();
 
