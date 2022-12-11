@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Controller\FileException;
 use App\Controller\throwException;
+use App\Repository\OrderDetailsRepository;
 // <<<<<<< HEAD
 use Symfony\Component\Validator\Constraints\Unique;
 
@@ -64,7 +65,7 @@ class ProductController extends AbstractController
     
                 $manager->persist($product);
                 $manager->flush();
-    
+                $this->addFlash('success', 'Edit Product Successfully');
                 return $this->redirectToRoute('app_product');
             }
             
@@ -75,15 +76,17 @@ class ProductController extends AbstractController
     }
 
     #[Route('/delete/{id}', name:'app_delete_product')]
-    public function deleteProduct($id, ManagerRegistry $registry, ProductRepository $repository){
+    public function deleteProduct($id, ManagerRegistry $registry, ProductRepository $repository, OrderDetailsRepository $orderDetailsRepository){
         $product = $repository->find($id);
-
-        if($product!=null){
+        $orderDetails = $orderDetailsRepository->findProductOrdered($product->getId());
+        if($orderDetails==null){
             $manager = $registry->getManager();
             $manager->remove($product);
             $manager->flush();
+            $this->addFlash('success', 'Product has ben deleted !');
+        }else{
+            $this->addFlash('notice', 'This product has been ordered so it can not delete !');
         }
-
         return $this->redirectToRoute('app_product');
     }
 
@@ -130,7 +133,7 @@ class ProductController extends AbstractController
 
             $manager->persist($product);
             $manager->flush();
-
+            $this->addFlash('success', 'Add Product Successfully');
             return $this->redirectToRoute('app_product');
         }
 
