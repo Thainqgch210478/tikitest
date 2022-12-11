@@ -3,31 +3,46 @@
 
 
 {% block body %}
+<div class="col-lg-10 ">				
+		        <div class="row">
 
-
-
-            <div class="col-lg-10 mt-3 ">
-	            <div class="row" >
                     {% for product in products %}
-                        <div class="col-sm-2 "    >
-                            <div class="rounded-3" style="background-color:white "  width = "200" height='388'>
-                                    <div >
+                        <div class="col-2 mt-2 " >
+                            
+                                {# <div class="items" style="background-color:white">
+                                
+                                    <div  >
                                         <a href=" ">
                                             <img  src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width='213' height='200'>
                                         </a>
                                     </div>
-                                    <div style="color:#ff424e" ><h3>{{product.name}}</h3></div>
-                                    <div>{{product.price}}đ</div>
-                                    <div>{{product.price}}đ</div>
-                                    <div>{{product.price}}đ</div>
-                                    <div>{{product.price}}đ</div>
+                                    <div  style="font-size:18px"  >{{product.name}}</div>
+                                    <div  style="color:#ff424e ; font-size:28px">{{product.price}}đ</div>
+                                    <div  style="font-size:15px">{{product.description}}đ</div>
+                                    
+                                </div> #}
 
-                            </div>
-                        </div>    
-                    {% endfor %}                   
-                </div>
-            </div>
-   
+                                <div class="card" style="width: 224px;height:338px; background-color:white">
+                                    <img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" class="card-img-top" alt="..." width='213' height='200'>
+                                    <div class="card-body"  style="width: 138px;height:176px ">
+                                    <div style="font-size:14px;width: 176px;height:32px; display:box"> 
+                                    <h5 class="" >{{product.name}}</h5>
+                                    </div>
+                                   
+                                    <p class="" style="font-size:18px;width: 176px;height:32px">ffsdfsdfsdfsdfsdfsdfsdfsfd</p>
+                                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                                </div>
+                        </div>
+                            
+                        </div> 
+
+                        
+
+
+                    {% endfor %}
+                </div>        		               
+</div>    
+
 
  
 {% endblock %}
