@@ -25,25 +25,35 @@
     </tr>
   </thead>
   <tbody>
-    {# {% for product in products %} #}
+    {% for order in orders %}
+    {% set total = 0 %}
     <tr>
-      <td></td>
+      <td>{{order.id}}</td>
       <td>
       
-      {# <img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width='150' height='180'> #}
+      {{order.date|date('Y-m-d')}}
       
       </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      {% for orderDetail in order.orderDetails %}
+        {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+      {% endfor %}
       <td>
-        {# <a href="{{path('app_view_product', {'id': product.id })}}}}"><i class="fa-solid fa-eye"></i></a>
-        <a href="{{path('app_edit_product', {'id': product.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
-        <a href="{{path('app_delete_product', {'id': product.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a> #}
+        {% for user in users %}
+          {% if order.cusid == user.userid %}
+            {{user.name}}
+            {% set break = true %}
+          {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{order.paymentmethod}}</td>
+      <td>{{total}} VND</td>
+      <td>{{order.status}}</td>
+      <td>
+        <a href="{{path('app_edit_order', {'id': order.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+        <a href="{{path('app_delete_order', {'id': order.id })}}}}"><i class="fa-solid fa-trash icon-product"></i></a>
       </td>
     </tr>
-    {# {% endfor %} #}
+    {% endfor %}
   </tbody>
 </table>
 </div>
