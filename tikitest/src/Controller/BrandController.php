@@ -36,6 +36,7 @@ class BrandController extends AbstractController
             $manager = $registry->getManager();
             $manager->persist($brand);
             $manager->flush();
+            $this->addFlash('notice', 'Add Brand Successfully');
         }
         return $this->redirectToRoute('app_brand');
     }
@@ -54,7 +55,7 @@ class BrandController extends AbstractController
 
             $manager->persist($brand);
             $manager->flush();
-
+            $this->addFlash('notice', 'Edit Brand Successfully');
             return $this->redirectToRoute('app_brand');
         }
         return $this->render('brand/editBrand.html.twig', [
@@ -71,6 +72,9 @@ class BrandController extends AbstractController
                 $manager = $registry->getManager();
                 $manager->remove($brand);
                 $manager->flush();
+                $this->addFlash('notice', 'Delete Brand Successfully');
+            }else{
+                $this->addFlash('error', 'Cannot Delete this Brand because there are more than one product owned this brand');
             }
         }
         return $this->redirectToRoute('app_brand');

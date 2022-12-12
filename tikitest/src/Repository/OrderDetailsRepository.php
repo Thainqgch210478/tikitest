@@ -38,7 +38,13 @@ class OrderDetailsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findProductOrdered($productid){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.productid = :val')
+        ->setParameter('val', $productid)
+        ->getQuery()
+        ->getResult();
+       }
 //    /**
 //     * @return OrderDetails[] Returns an array of OrderDetails objects
 //     */
