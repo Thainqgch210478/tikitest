@@ -38,7 +38,13 @@ class UserDetailRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function searchUseryId($userid): ?UserDetail {
+        return $this->createQueryBuilder('u')
+        ->andWhere('u.userid = :val')
+        ->setParameter('val', $userid)
+        ->getQuery()
+        ->getOneOrNullResult();
+       }
 //    /**
 //     * @return UserDetail[] Returns an array of UserDetail objects
 //     */

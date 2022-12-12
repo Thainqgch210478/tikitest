@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('user/detail')]
 class UserDetailController extends AbstractController
 {
-    #[Route('/{id}', name: 'app_user_detail')]
+    #[Route('/', name: 'app_user_detail')]
     public function userDetail($id, UserDetailRepository $userDetail): Response
     {
         $user = $userDetail->find($id);
