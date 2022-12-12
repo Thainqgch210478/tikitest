@@ -54,7 +54,7 @@ class CategoryController extends AbstractController
 
             $manager->persist($category);
             $manager->flush();
-
+            $this->addFlash('notice', 'Edit Todo Succesfully !');
             return $this->redirectToRoute('app_category');
         }
         return $this->render('category/editCategory.html.twig', [
@@ -71,6 +71,9 @@ class CategoryController extends AbstractController
                 $manager = $registry->getManager();
                 $manager->remove($category);
                 $manager->flush();
+            }
+            else{
+                $this->addFlash('error', 'Cannot Delete this category because there are more than one product has this category');
             }
         }
         return $this->redirectToRoute('app_category');

@@ -2,15 +2,6 @@
 {% block body %}
 <div class="container">
 <div class="header-control">
-  <a href="{{path('app_add_product')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Product</a>
-  <a href="{{path('app_category')}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Category</a>
-    <input type="text" placeholder="Search something">
-</div>
-<div class="order-control">
-    <a href="#">All Order</a>
-    <a href="#">Waiting</a>
-    <a href="#">Completed</a>
-    <a href="">Canceled</a>
 </div>
 <form action="{{ path ('app_edit_order', {'id': order.id })}}"  method="post">
 <div class="container">

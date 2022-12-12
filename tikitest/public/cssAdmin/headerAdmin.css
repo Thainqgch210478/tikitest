@@ -1,0 +1,36 @@
+.container{
+    max-width: 1450px;
+}
+.navAdmin{
+    background-color: rgb(26, 148, 255);
+    
+}
+.nav-item > a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+.account-btn{
+    display: flex;
+}
+.account-btn>a{
+    display: block;
+    text-decoration: none;
+    margin: 0 auto;
+}
+.logout{
+    color: bisque;
+    
+}
+.logout:hover{
+    color: rgb(255, 255, 255);
+}
+.icon-user{
+    font-size: 40px;
+    color: white;
+    cursor: pointer
+}
+.logoutbtn{
+    padding-left: 20px;
+    margin-top: 8px;
+}
