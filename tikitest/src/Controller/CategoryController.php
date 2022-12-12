@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\UserDetailRepository;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -19,12 +19,20 @@ class CategoryController extends AbstractController
     #[Route('/', name: 'app_category')]
     public function index(CategoryRepository $categoryRepository): Response
     {
+        $user = $this->getUser();
         $categories = $categoryRepository->findAll();
         return $this->render('category/index.html.twig', [
-            'categories' => $categories , 
+            'categories' => $categories , 'user'=>$user
         ]);
     }
-
+    #[Route('/test/{id}', name: 'testid')]
+    public function testID(UserDetailRepository $userDetailRepository, $id): Response
+    {
+        $userDetail = $userDetailRepository->searchUseryId($id);
+        return $this->render('user_detail/index.html.twig', [
+                'userDetail'=>$userDetail
+        ]);
+    }
     #[Route('/add', name: 'app_add_category')]
     public function add(Request $request, CategoryRepository $categoryRepository, ManagerRegistry $registry): Response
     {

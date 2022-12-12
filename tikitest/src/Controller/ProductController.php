@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Controller\FileException;
 use App\Controller\throwException;
 use App\Repository\OrderDetailsRepository;
+use App\Repository\UserDetailRepository;
 // <<<<<<< HEAD
 use Symfony\Component\Validator\Constraints\Unique;
 
@@ -27,11 +28,19 @@ class ProductController extends AbstractController
     #[Route('/', name: 'app_product')]
     public function allProduct(ProductRepository $repository): Response
     {
+        $user = $this->getUser();
         return $this->render('product/index.html.twig', [
-            'products' => $repository->findAll(),
+            'products' => $repository->findAll(), 'user'=>$user
         ]);
     }
-
+    #[Route('/test/{id}', name: 'testid')]
+    public function testID(UserDetailRepository $userDetailRepository, $id): Response
+    {
+        $userDetail = $userDetailRepository->searchUseryId($id);
+        return $this->render('user_detail/index.html.twig', [
+                'userDetail'=>$userDetail
+        ]);
+    }
     #[Route('/edit/{id}', name: 'app_edit_product')]
     public function editProduct(ProductRepository $repository, $id, ManagerRegistry $registry, Request $request): Response
     {

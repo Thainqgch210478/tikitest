@@ -41,7 +41,7 @@
       </ul>
     </div>
     <div class="account-btn">
-    <div><i class="fa-solid fa-circle-user icon-user"></i></div>
+    <a href="{{ path ('testid', {'id': user.id })}}"><i class="fa-solid fa-circle-user icon-user"></i></a>
         <div class="logoutbtn"><a class="logout" href="{{path('app_logout')}}">Log Out</a></div>
         
     </div>

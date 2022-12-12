@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\UserDetailRepository;
 use App\Entity\Brand;
 use App\Repository\BrandRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,12 +17,20 @@ class BrandController extends AbstractController
     #[Route('/', name: 'app_brand')]
     public function index(BrandRepository $brandRepository): Response
     {
+        $user = $this->getUser();
         $brands = $brandRepository->findAll();
         return $this->render('brand/index.html.twig', [
-            'brands' => $brands,
+            'brands' => $brands, 'user'=>$user
         ]);
     }
-
+    #[Route('/test/{id}', name: 'testid')]
+    public function testID(UserDetailRepository $userDetailRepository, $id): Response
+    {
+        $userDetail = $userDetailRepository->searchUseryId($id);
+        return $this->render('user_detail/index.html.twig', [
+                'userDetail'=>$userDetail
+        ]);
+    }
     #[Route('/add', name: 'app_add_brand')]
     public function add(Request $request, BrandRepository $brandRepository, ManagerRegistry $registry): Response
     {
