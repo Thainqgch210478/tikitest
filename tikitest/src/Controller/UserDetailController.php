@@ -23,7 +23,7 @@ class UserDetailController extends AbstractController
         return $this->redirectToRoute('app_product');
     }
 
-    // #[Route('/edit')]
+    // #[Route('/edit{id}')]
     // public function editUser(UserRepository $userRepository,$id,ManagerRegistry,Request $request):Respone
     // {
     //     $user = $userRepository->find($id);
