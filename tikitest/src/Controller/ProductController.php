@@ -45,6 +45,7 @@ class ProductController extends AbstractController
     public function editProduct(ProductRepository $repository, $id, ManagerRegistry $registry, Request $request): Response
     {
         $product = $repository->find($id);
+        $user = $this->getUser();
         if($product==null){
             return $this->redirectToRoute('app_product');
         }else{
@@ -79,7 +80,7 @@ class ProductController extends AbstractController
             }
             
             return $this->renderForm('product/detail.html.twig', [
-                'productForm' => $form,
+                'productForm' => $form, 'user'=>$user
             ]);
         }
     }

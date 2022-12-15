@@ -11,9 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('user/detail')]
 class UserDetailController extends AbstractController
 {
-<<<<<<< HEAD
+// <<<<<<< HEAD
     
-=======
+// =======
     #[Route('/', name: 'app_user_detail')]
     public function userDetail($id, UserDetailRepository $userDetail): Response
     {
@@ -25,7 +25,7 @@ class UserDetailController extends AbstractController
         }
         return $this->redirectToRoute('app_product');
     }
->>>>>>> 61d9b407388ab37dd3652adf28817e9dcda0b43c
+// >>>>>>> 61d9b407388ab37dd3652adf28817e9dcda0b43c
 
     // #[Route('/edit{id}')]
     // public function editUser(UserRepository $userRepository,$id,ManagerRegistry,Request $request):Respone
