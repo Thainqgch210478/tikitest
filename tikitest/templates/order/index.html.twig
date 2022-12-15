@@ -1,15 +1,33 @@
 {% extends 'headerAdmin.html.twig' %}
 {% block body %}
 <div class="container">
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="alert alert-danger">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
 <div class="header-control">
     
 </div>
 <div class="order-control">
-    <a href="#">All Order</a>
-    <a href="#">Waiting</a>
-    <a href="#">Completed</a>
-    <a href="">Canceled</a>
-    <input type="text" placeholder="Search something">
+<div class="order_status_search" style="display:inline-block;">
+    <a href="{{path('app_order')}}">All Order</a>
+    <a href="{{path('app_waiting_order')}}">Waiting</a>
+    <a href="{{path('app_completed_order')}}">Completed</a>
+    <a href="{{path('app_canceled_order')}}">Canceled</a>
+</div>
+<div class="order_search">
+  <form action="{{path('app_search_order')}}" method="post">
+    <input type="search" placeholder="Search something" name="searchOrder">
+  </form>
+</div>
 </div>
 <table class="table">
   <thead class="thead-dark">

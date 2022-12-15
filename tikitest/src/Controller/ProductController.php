@@ -80,7 +80,7 @@ class ProductController extends AbstractController
             }
             
             return $this->renderForm('product/detail.html.twig', [
-                'productForm' => $form, 'user'=>$user
+                'productForm' => $form, 'user'=>$user, 'product'=>$product
             ]);
         }
     }
@@ -115,7 +115,7 @@ class ProductController extends AbstractController
     #[Route('/add', name:'app_add_product')]
     public function addProduct(ManagerRegistry $managerRegistry, Request $request){
         $product = new Product;
-
+        $user = $this->getUser();
         $form = $this->createForm(ProductType::class, $product);
         $form->add('Submit', SubmitType::class);
         $form->handleRequest($request);
@@ -148,7 +148,25 @@ class ProductController extends AbstractController
         }
 
         return $this->renderForm('product/addProduct.html.twig', [
-            'formAddProduct'=>$form
+            'formAddProduct'=>$form, 'user'=>$user
         ]);
+    }
+    #[Route('/search', name:'app_search_product')]
+    public function search(ProductRepository $productRepository, Request $request){
+        $user = $this->getUser();
+        $search = $request->get('search');
+        $productSearchById = $productRepository->searchProductById($search);
+        $productSearchByName = $productRepository->searchProductByName($search);
+        if($productSearchById != null){
+            return $this->render('product/index.html.twig', [
+                'products' => $productSearchById, 'user'=>$user
+            ]);
+        }else if ($productSearchByName != null){
+            return $this->render('product/index.html.twig', [
+                'products' => $productSearchByName, 'user'=>$user
+            ]);
+        }else{
+            return $this->addFlash('notice', 'Product Not Found');
+        }
     }
 }

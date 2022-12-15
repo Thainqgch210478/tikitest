@@ -38,7 +38,34 @@ class OrderRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function searchOrderByWaitingStatus($name){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.status LIKE :val')
+        ->setParameter('val', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
+       }
+       public function searchOrderByCompletedStatus($name){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.status LIKE :val')
+        ->setParameter('val', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
+       }
+       public function searchOrderByWCanceledStatus($name){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.status LIKE :val')
+        ->setParameter('val', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
+       }
+       public function searchOrderBygStatus($name){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.status LIKE :val')
+        ->setParameter('val', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
+       }
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */

@@ -1,5 +1,64 @@
 {% form_theme productForm 'bootstrap_5_layout.html.twig'%}
 {% extends 'headerAdmin.html.twig' %}
 {% block body %}
+<div class="container wrapProductDetail">    
 {{form(productForm)}}
+<div class="wrapImageSelection">
+<div class="contain_img-list">
+        <img
+          src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}"
+          alt=""
+          class="img-css img-change"
+        />
+        <img
+          src="{{asset('imageAdmin/imgProduct/'~ product.image2)}}"
+          alt=""
+          class="img-css img-change"
+        />
+        <img
+          src="{{asset('imageAdmin/imgProduct/'~ product.image3)}}"
+          alt=""
+          class="img-css img-change"
+        />
+        <div class="img-list-update">
+          <img
+            src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}"
+            alt=""
+            onclick="currentSlide(1);"
+          />
+          <img
+            src="{{asset('imageAdmin/imgProduct/'~ product.image2)}}"
+            alt=""
+            onclick="currentSlide(2);"
+          />
+          <img
+            src="{{asset('imageAdmin/imgProduct/'~ product.image3)}}"
+            alt=""
+            onclick="currentSlide(3)"
+          />
+        </div>
+      </div>
+</div>
+</div>
+<script>
+let slideIndex = 1;
+      showSlides(slideIndex);
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("img-change");
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+      }
+</script>
 {% endblock %}

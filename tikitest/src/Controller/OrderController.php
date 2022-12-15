@@ -66,4 +66,81 @@ class OrderController extends AbstractController
             'orders'=>$orders, 'users'=>$users
         ]);
     }
+    #[Route('/search', name:'app_search_order')]
+    public function searchOrder(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository) : Response{
+        $user = $this->getUser();
+        $search = $request->get('searchOrder');
+        $orderByWaiting = $orderRepository->searchOrderByWaitingStatus($search);
+        $orderByCompleted = $orderRepository->searchOrderByCompletedStatus($search);
+        $orderByCanceled = $orderRepository->searchOrderByWCanceledStatus($search);
+        $users = $userDetailRepository->findAll();
+
+        if($orderByWaiting != null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByWaiting, 'users'=>$users, 'user'=>$user
+            ]); 
+        }
+        else if($orderByCompleted != null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByCompleted, 'users'=>$users, 'user'=>$user
+            ]); 
+        }
+        else if($orderByCanceled != null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByCanceled, 'users'=>$users, 'user'=>$user
+            ]); 
+        }else if ($orderByCanceled == null && $orderByCanceled == null && $orderByCompleted == null){
+            $this->addFlash('notice', 'Order Not Found');
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByCanceled, 'users'=>$users, 'user'=>$user
+            ]); 
+        }
+    }
+
+    #[Route('/waiting', name:'app_waiting_order')]
+    public function searchByWaitingOrderStatus(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository){
+        $user = $this->getUser();
+        $orderByWaiting = $orderRepository->searchOrderBygStatus('Waiting');
+        $users = $userDetailRepository->findAll();
+        if($orderByWaiting!=null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByWaiting, 'users'=>$users, 'user'=>$user
+            ]); 
+        }else{
+            $this->addFlash('notice', 'Order Not Found');
+            return $this->redirectToRoute('app_order');
+        }
+
+    }
+
+    #[Route('/completed', name:'app_completed_order')]
+    public function searchByCompletedOrderStatus(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository){
+        $user = $this->getUser();
+        $orderByCompleted = $orderRepository->searchOrderBygStatus('Completed');
+        $users = $userDetailRepository->findAll();
+        if($orderByCompleted!=null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByCompleted, 'users'=>$users, 'user'=>$user
+            ]); 
+        }else{
+            $this->addFlash('notice', 'Order Not Found');
+            return $this->redirectToRoute('app_order');
+        }
+
+    }
+
+    #[Route('/canceled', name:'app_canceled_order')]
+    public function searchByCanceledOrderStatus(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository){
+        $user = $this->getUser();
+        $orderByCanceled = $orderRepository->searchOrderBygStatus('Canceled');
+        $users = $userDetailRepository->findAll();
+        if($orderByCanceled!=null){
+            return $this->render('order/index.html.twig', [
+                'orders'=>$orderByCanceled, 'users'=>$users, 'user'=>$user
+            ]); 
+        }else{
+            $this->addFlash('notice', 'Order Not Found');
+            return $this->redirectToRoute('app_order');
+        }
+    }
 }

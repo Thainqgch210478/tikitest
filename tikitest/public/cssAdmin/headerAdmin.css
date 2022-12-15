@@ -34,3 +34,114 @@
     padding-left: 20px;
     margin-top: 8px;
 }
+.left_element{
+    display: inline-block;
+}
+.right_element{
+    display: inline-block;
+}
+.header-control{
+    display: flex;
+    justify-content: space-between;
+}
+.wrap_form_and_orderDetail{
+    padding: 20px;
+}
+.wrap_form{
+    display: flex;
+    width: 60%;
+    
+}
+.wrap_form>form{
+    border-radius: 10px;    
+}
+.wrap_input_result{
+    padding: 0;
+}
+.wrap_input_result>input{
+    width: 700px;
+    display: block;
+    padding: 5px;
+    margin: 8px 0px;
+}
+.wrap_update_status{
+    display: flex;
+    justify-content: space-between;
+}
+.wrap_update_status>input{
+    margin: 0;
+    margin: auto 0;
+}
+.wrapOrderDetails{
+    width: 40%;
+}
+.wrap_form_and_orderDetail{
+    display: flex;
+}
+.input_submit>input{
+    width: 100%;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 5px 0px;
+}
+.input_submit>input:hover{
+    background-color: #f48225;
+}
+.total_heading{
+    margin: auto 0;
+    font-weight: 100;
+}
+.wrap_total_order{
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #ccc;
+    padding: 10px 10px;
+}
+.wrapHeaderOrderDetail{
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 15px;
+}
+.wrapHeaderOrderDetail > i{
+    font-size: 1.5rem;
+}
+.label_heading_order_infor{
+    font-weight: 500;
+}
+.sum{
+    padding-right: 15px;
+    font-weight: 500;
+    color: #f44336;
+    font-size: 1.25rem;
+}
+.wrapOrderDetailInside{
+    background-color: beige;
+    padding: 20px;
+    border-radius: 15px;
+}
+.listOrderDetailHeading{
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding-left: 10px;
+}
+@media (max-width: 1300px) {
+    .container{
+        max-width: 800px;
+    }
+    .wrap_form_and_orderDetail{
+        width: 1000px;
+        display: block;
+    }
+    .wrap_form{
+        display: block;
+        width: 100%;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+    .wrapOrderDetails{
+        display: block;
+        width: 100%;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+}

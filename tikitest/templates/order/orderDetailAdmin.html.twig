@@ -1,72 +1,112 @@
 {% extends 'headerAdmin.html.twig' %}
 {% block body %}
-<div class="container">
-<div class="header-control">
-</div>
-<form action="{{ path ('app_edit_order', {'id': order.id })}}"  method="post">
-<div class="container">
-{% set total = 0 %}
-    <input type="text" name='categoryName' disabled required value="{{order.id}}" >
-    <input type="text" name='categoryName' disabled required value="{{order.date|date('Y-m-d')}}" >
-    {% for user in users %}
-        {% if user.userid == order.cusid %}
-            <input type="text" name='categoryName' disabled required value="{{user.name}}" >
-            {% set break = true %}
-        {% endif %}
-    {% endfor %}
-    <input type="text" name='categoryName' disabled required value="{{order.paymentmethod}}" >
-    <input type="textarea" name='categoryName' disabled required value="{{order.address}}" >
-    <input type="text" name='categoryName' disabled required value="{{order.status}}" >
-    {% set var = 'checked' %}
-    update status
-  <input type="radio" name="status" value="Waiting" >
-  <label for="html">Waiting</label><br>
-  <input type="radio" name="status" value="Completed">
-  <label for="css">Completed</label><br>
-  <input type="radio" name="status" value="Canceled">
-  <label for="javascript">Canceled</label>
-    <input type="submit" value="Update">
-</div>
-</form>
-<div class="wrapOrderDetails">
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Image</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-  {% set count = 0 %}
-    {% for orderdetail in orderDetail %}
-    {% if orderdetail.orderid.id == order.id %}
-        {% set count  = count  + 1 %}
-        {% set total = 0 %}
-      <tr>
-        <td>{{count}}</td>
-        {% for product in products %}
-          {% if product.id == orderdetail.productid.id  %}
-          <td><img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width="60px" height="60px"></td>
-          <td>{{product.name}}</td>
-          <td>{{orderdetail.quantity}}</td>
-          <td>{{product.price * orderdetail.quantity}}</td>
-          {% set break = true %}
-          {% endif %}
-        {% endfor %}
+<div class="container wrap_form_and_orderDetail">
 
-      </tr>
-    {% endif %}
-    {% endfor %}
-  </tbody>
-</table>
-      {% for orderDetail in order.orderDetails %}
-        {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
-      {% endfor %}
-    <input type="text" name='categoryName' disabled required value="{{total}}" >
+  <div class="wrap_form">
+  <form action="{{ path ('app_edit_order', {'id': order.id })}}"  method="post" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; padding: 20px;">
+  <div class="wrap_order_infor">
+<h1>Order #{{order.id}} </h1>
 </div>
+    <div class="container wrap_input_result">
+    {% set total = 0 %}
+    <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.id}}" >
+    <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.date|date('Y-m-d')}}" >
+        {% for user in users %}
+            {% if user.userid == order.cusid %}
+            <span class="label_heading_order_infor">Ma Don Hang</span>
+                <input type="text" name='categoryName' disabled required value="{{user.name}}" >
+                {% set break = true %}
+            {% endif %}
+        {% endfor %}
+        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.paymentmethod}}" >
+        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="textarea" name='categoryName' disabled required value="{{order.address}}" >
+        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.status}}" >
+        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.phonenumber}}" >
+        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <input type="text" name='categoryName' disabled required value="{{order.transportationmethod}}" >
+        {% set var = 'checked' %}
+        <span class="label_heading_order_infor">Update Status</span>
+        <div class="wrap_update_status">
+        <div class="wrap_radio">
+          <input type="radio" name="status" value="Waiting" >
+          <label for="html" style="margin: auto 0;">Waiting</label><br>
+        </div>
+        <div class="wrap_radio">
+          <input type="radio" name="status" value="Completed">
+          <label for="css" style="margin: auto 0;">Completed</label><br>
+        </div>
+        <div class="wrap_radio">
+          <input type="radio" name="status" value="Canceled">
+          <label for="javascript" style="margin: auto 0;">Canceled</label>
+        </div>
+        </div>
+          <div class="input_submit">
+          <input type="submit" value="Update">
+          </div>
+    </div>
+  </form>
+</div>
+
+  <div class="wrapOrderDetails">
+  <div class="wrapOrderDetailInside">
+  <div class="wrap_order_decor">
+  <div class="wrapHeaderOrderDetail">
+    <i class="fa-solid fa-cart-shopping"></i>
+  <span class="listOrderDetailHeading">Order Details</span>
+  </div>
+
+      <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% set count = 0 %}
+        {% for orderdetail in orderDetail %}
+        {% if orderdetail.orderid.id == order.id %}
+            {% set count  = count  + 1 %}
+            {% set total = 0 %}
+          <tr>
+            <td>{{count}}</td>
+            {% for product in products %}
+              {% if product.id == orderdetail.productid.id  %}
+              <td><img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width="60px" height="60px"></td>
+              <td>{{product.name}}</td>
+              <td>{{orderdetail.quantity}}</td>
+              <td>{{product.price * orderdetail.quantity}}</td>
+              {% set break = true %}
+              {% endif %}
+            {% endfor %}
+
+          </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="wrap_total_order">
+    <span class="total_heading">Total Price</span>
+          {% for orderDetail in order.orderDetails %}
+            {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+          {% endfor %}
+          <span class="sum">{{total}} VND</span>
+    </div>
+  </div>
+  </div>
+  
+
+
+    </div>
 </div>
 
 {% endblock %}
