@@ -17,7 +17,8 @@ class UserController extends AbstractController
 {
     #[Route('/view', name: 'app_user_product')]
     public function allProduct(ProductRepository $respository,UserDetailRepository $userRepository): Response
-    {
+    {   
+        
         $user = $this->getUser();
         return $this->render('product/viewUserProduct.html.twig', [
             'products' => $respository->findAll(),
@@ -29,7 +30,7 @@ class UserController extends AbstractController
     public function userDetail($id, UserRepository $userDetail): Response
     {   
         $user = $userDetail->find($id);
-        $userid= $this->getUser($user);
+        $userid= $this->getUser();
        
         if($id!=null){
             return $this->render('user/userInfor.html.twig', [
@@ -85,9 +86,12 @@ class UserController extends AbstractController
     #[Route('/view/{id}', name:'app_view_product')]
     public function viewProduct($id, ProductRepository $productRepository){
         $product = $productRepository->find($id);
+      
+        $userid= $this->getUser();
         if($product!=null){
             return $this->render('user/detailProduct.html.twig', [
-                'product'=>$product
+                'product'=>$product,
+                'user'=>$userid
             ]);
         }
         return $this->redirectToRoute('app_product');

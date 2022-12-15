@@ -28,13 +28,22 @@ class UserDetailController extends AbstractController
         $user = $userDetail->find($id);
         $userid= $this->getUser($user);
 
-        if($user!=null){
-            return $this->render('userBase.html.twig', [
-                'user'=>$user
-            ]);
-        }
-        return $this->redirectToRoute('app_product');
-    }
+    // #[Route('/{id}', name: 'app_user_detail2')]
+
+    // public function userDetail($id, UserDetailRepository $userDetail): Response
+    // {
+    //     $user = $userDetail->find($id);
+    //     // $userid= $this->getUser($user);
+
+    //     if($user!=null){
+    //         return $this->render('userBase.html.twig', [
+    //             'user'=>$user
+    //         ]);
+    //     }
+    //     return $this->redirectToRoute('app_product');
+    // }
+
+
 // >>>>>>> 61d9b407388ab37dd3652adf28817e9dcda0b43c
 
     // #[Route('/edit{id}')]
