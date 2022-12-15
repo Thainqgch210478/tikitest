@@ -13,7 +13,7 @@ class UserDetailController extends AbstractController
 {
 // <<<<<<< HEAD
     
-// =========
+// ==========
     #[Route('/{id}', name: 'app_user_detail2')]
     public function userDetail($id, UserDetailRepository $userDetail): Response
     {
