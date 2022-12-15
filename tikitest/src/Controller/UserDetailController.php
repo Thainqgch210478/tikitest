@@ -14,10 +14,16 @@ class UserDetailController extends AbstractController
 // <<<<<<< HEAD
     
 // =======
+<<<<<<< HEAD
     #[Route('/', name: 'app_user_detail')]
+=======
+    #[Route('/{id}', name: 'app_user_detail2')]
+>>>>>>> c67cc1d0e8e6ac4c7bf0b51e66f580300085c80c
     public function userDetail($id, UserDetailRepository $userDetail): Response
     {
         $user = $userDetail->find($id);
+        $userid= $this->getUser($user);
+
         if($user!=null){
             return $this->render('userBase.html.twig', [
                 'user'=>$user

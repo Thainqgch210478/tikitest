@@ -29,11 +29,11 @@ class UserController extends AbstractController
     public function userDetail($id, UserRepository $userDetail): Response
     {   
         $user = $userDetail->find($id);
-        // $userid= $this->getUser($user);
+        $userid= $this->getUser($user);
        
         if($id!=null){
             return $this->render('user/userInfor.html.twig', [
-                'user'=>$user   
+                'user'=>$userid    
             ]);
         }
         return $this->redirectToRoute('app_product');
@@ -93,5 +93,7 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_product');
     }
 
+
+    
 
 }
