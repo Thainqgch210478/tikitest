@@ -52,6 +52,7 @@ class BrandController extends AbstractController
     #[Route('/edit/{id}', name: 'app_edit_brand')]
     public function id(Request $request, BrandRepository $brandRepository, ManagerRegistry $registry, $id): Response
     {
+        $user = $this->getUser();
         $brands = $brandRepository->findAll();
         $brand = $brandRepository->find($id);
         $brandName = $request->get('brandName');
@@ -67,7 +68,7 @@ class BrandController extends AbstractController
             return $this->redirectToRoute('app_brand');
         }
         return $this->render('brand/editBrand.html.twig', [
-            'brands' => $brands  , 'brand'=>$brand 
+            'brands' => $brands  , 'brand'=>$brand , 'user'=>$user
         ]);
     }
 

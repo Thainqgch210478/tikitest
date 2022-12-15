@@ -39,6 +39,7 @@ class OrderController extends AbstractController
     #[Route('/edit/{id}', name: 'app_edit_order')]
     public function edit(OrderRepository $orderRepository, ManagerRegistry $managerRegistry, UserDetailRepository $userDetailRepository, $id, OrderDetailsRepository $details, ProductRepository $productRepository, Request $request): Response
     {
+        $user = $this->getUser();
         $order = $orderRepository->find($id);
         $orderDetails = $details->findAll();
         $users = $userDetailRepository->findAll();
@@ -52,7 +53,7 @@ class OrderController extends AbstractController
             $manager->flush();
         }
         return $this->render('order/orderDetailAdmin.html.twig', [
-            'order'=>$order, 'users'=>$users, 'orderDetail'=>$orderDetails, 'products'=>$products
+            'order'=>$order, 'users'=>$users, 'orderDetail'=>$orderDetails, 'products'=>$products, 'user'=>$user
         ]);
     }
 

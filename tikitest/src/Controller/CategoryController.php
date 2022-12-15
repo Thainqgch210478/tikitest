@@ -53,6 +53,7 @@ class CategoryController extends AbstractController
     #[Route('/edit/{id}', name: 'app_edit_category')]
     public function id(Request $request, CategoryRepository $categoryRepository, ManagerRegistry $registry, $id): Response
     {
+        $user = $this->getUser();
         $categories = $categoryRepository->findAll();
         $category = $categoryRepository->find($id);
         $categoryName = $request->get('categoryName');
@@ -66,7 +67,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('app_category');
         }
         return $this->render('category/editCategory.html.twig', [
-            'categories' => $categories , 'category'=>$category
+            'categories' => $categories , 'category'=>$category, 'user'=>$user
         ]);
     }
 
