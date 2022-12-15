@@ -53,3 +53,4 @@ class UserDetailController extends AbstractController
 
     // }
 }
+}
