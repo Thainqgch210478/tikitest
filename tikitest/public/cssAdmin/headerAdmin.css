@@ -124,6 +124,14 @@
     font-weight: 500;
     padding-left: 10px;
 }
+
+.header-control_sort{
+    display: inline-block;
+}
+.wrapHeaderControleBtnAndSearch{
+    display: flex;
+    justify-content: space-between;
+}
 @media (max-width: 1300px) {
     .container{
         max-width: 800px;
@@ -144,4 +152,14 @@
         border-top-right-radius: 0px;
         border-top-left-radius: 0px;
     }
+}
+.order-control{
+    display: flex;
+    justify-content: space-between;
+}
+.order_status_search{
+    display: inline-block;
+}
+.order-search{
+    display: inline-block;
 }

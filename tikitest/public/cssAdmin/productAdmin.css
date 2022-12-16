@@ -48,3 +48,11 @@
 .btn-primary{
     width: 100%;
 }
+.wrapAddProductForm{
+    margin: 20px 0px;
+}
+.wrapAddProductForm>form>div{
+    width: 765px;
+    margin: 0 auto;
+    
+}

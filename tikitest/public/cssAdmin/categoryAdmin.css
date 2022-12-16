@@ -1,0 +1,12 @@
+.wrapCategoryContent{
+    display: flex;
+}
+.wrapCategoryTable{
+    display: block;
+    width: 70%;
+}
+.wrapCategoryForm{
+    display: block;
+    width: 30%;
+    margin: auto 0;
+}

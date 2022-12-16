@@ -166,7 +166,10 @@ class ProductController extends AbstractController
                 'products' => $productSearchByName, 'user'=>$user
             ]);
         }else{
-            return $this->addFlash('notice', 'Product Not Found');
+            $this->addFlash('notice', 'Product Not Found');
+            return $this->render('product/index.html.twig', [
+                'products' => $productSearchByName, 'user'=>$user
+            ]);
         }
     }
 }

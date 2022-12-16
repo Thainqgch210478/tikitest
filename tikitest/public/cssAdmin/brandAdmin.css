@@ -1,0 +1,62 @@
+.wrapBrandContent{
+    display: flex;
+    margin: 15px 0px;
+}
+.wrapBrandContent>form{
+    width: 30%;
+    display: block
+}
+.wrapBrandForm{
+    display: block;
+    margin: auto 0;
+}
+.wrapBrandForm>form{
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+.brandName{
+    width: 100%;
+}
+.wrapTableBrand{
+    width: 60%;
+}
+.wrapBrandForm{
+    width: 40%;
+    
+}
+.wrapformbrandimg{
+    
+}
+.wrapformbrandimg>img{
+    display: block;
+margin: 0 auto;
+object-fit: contain;
+}
+.wrapInputForm{
+    display: flex;
+}
+.wrapformbrandedit{
+    width: 70%;
+    border-right: 2px solid #ccc;
+    padding-right: 15px;
+}
+.wrapformbrandimg{
+    display: block;
+    width: 30%;
+    margin: auto 0;
+}
+.wrapformbrandedit>input{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.btnSubmitBrand{
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+}
+.btnSubmitBrand:hover{
+    background-color: rgb(26, 148, 255);
+}

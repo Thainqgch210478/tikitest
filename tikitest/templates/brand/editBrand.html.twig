@@ -15,50 +15,68 @@
                 </div>
             {% endfor %}
 </div>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Image</th>
-      <th scope="col">Name</th>
-      <th scope="col">Total Product</th>
-      <th scope="col">Menu</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-    {% for brand in brands %}
-    {% set count = 0 %}
-    <tr>
-      <td>{{brand.id}}</td>
-      <td><img src="{{ asset('imageAdmin/imgBrand/'~ brand.image) }}" alt="" srcset="" width="100px" height="100px"></td>
-      <td>{{brand.name}}</td>
-      {% for product in brand.products %}
-            {% set count = count + 1 %}
-      {% endfor %}
-      <td>{{count}}</td>
-      <td>
-        <a href="{{path('app_edit_brand', {'id': brand.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
-        <a href="{{path('app_delete_brand', {'id': brand.id })}}}}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa-solid fa-trash icon-product"></i></a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-<form action="{{ path ('app_edit_brand', {'id': brand.id })}}"  method="post">
-<div class="container">
-    Brand Name
-    <input type="text" name='brandName' placeholder='Add Category Name' required value="{{brand.name}}" >
-        <input
-                type="file"
-                name="imageBrand"
-                accept="image/jpg, image/jpeg, image/png, image/webp"
-                class="box-input"
-                required
-              />
-    <input type="submit" value="Update">
+<div class="wrapBrandContent">
+  <div class="wrapTableBrand">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Total Product</th>
+          <th scope="col">Menu</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        {% for brand in brands %}
+        {% set count = 0 %}
+        <tr>
+          <td>{{brand.id}}</td>
+          <td><img src="{{ asset('imageAdmin/imgBrand/'~ brand.image) }}" alt="" srcset="" width="100px" height="100px"></td>
+          <td>{{brand.name}}</td>
+          {% for product in brand.products %}
+                {% set count = count + 1 %}
+          {% endfor %}
+          <td>{{count}}</td>
+          <td>
+            <a href="{{path('app_edit_brand', {'id': brand.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+            <a href="{{path('app_delete_brand', {'id': brand.id })}}}}" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa-solid fa-trash icon-product"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+<div class="container wrapBrandForm">
+  <form action="{{ path ('app_edit_brand', {'id': brand.id })}}"  method="post">
+  <div class="container wrapInputForm">
+  <div class="wrapformbrandedit">
+      <span class="headBrandForm" style="display: block;">Brand Name</span> 
+      <input type="text" name='brandName' placeholder='Add Category Name' required value="{{brand.name}}" style="display: block; width: 100%;">
+      <span class="headBrandForm" style="display: block;">Brand Image</span>
+          <input
+                  type="file"
+                  name="imageBrand"
+                  accept="image/jpg, image/jpeg, image/png, image/webp"
+                  class="box-input"
+                  required style="display: block; width: 100%;" 
+                />
+      <input type="submit" value="Update" style="display: block; width: 100%; border: none; padding: 5px; " class="btnSubmitBrand">
+  </div>
+  <div class="wrapformbrandimg">
+    <img src="{{ asset('imageAdmin/imgBrand/'~ brand.image) }}" alt="" srcset="" width="100px" height="100px">
+  </div>
+
+      
+  </div>
+  </form>
 </div>
-</form>
+</div>
+
+
+
+
 </div>
 
 {% endblock %}

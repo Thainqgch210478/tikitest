@@ -16,14 +16,15 @@
 <div class="header-control">
     
 </div>
-<div class="order-control">
+<div class="order-control" style="    display: flex;
+    justify-content: space-between;">
 <div class="order_status_search" style="display:inline-block;">
     <a href="{{path('app_order')}}">All Order</a>
     <a href="{{path('app_waiting_order')}}">Waiting</a>
     <a href="{{path('app_completed_order')}}">Completed</a>
     <a href="{{path('app_canceled_order')}}">Canceled</a>
 </div>
-<div class="order_search">
+<div class="order_search" style="display: inline-block;">
   <form action="{{path('app_search_order')}}" method="post">
     <input type="search" placeholder="Search something" name="searchOrder">
   </form>

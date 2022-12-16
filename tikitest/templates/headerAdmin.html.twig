@@ -10,6 +10,8 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
             <link rel="stylesheet" href="{{asset('cssAdmin/headerAdmin.css')}}">
             <link rel="stylesheet" href="{{asset('cssAdmin/productAdmin.css')}}">
+            <link rel="stylesheet" href="{{asset('cssAdmin/brandAdmin.css')}}">
+            <link rel="stylesheet" href="{{asset('cssAdmin/categoryAdmin.css')}}">
         {% endblock %}
 
         {% block javascripts %}
@@ -38,6 +40,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{path('app_order')}}">Order</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_category')}}">Category</a>
         </li>
       </ul>
     </div>
