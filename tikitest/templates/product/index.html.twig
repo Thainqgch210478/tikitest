@@ -25,13 +25,12 @@
     justify-content: space-between;">
   <div class="header-control_sort" style="display: inline-block;">
   Sort
-    <a href="{{path('app_add_product')}}" role="button" aria-pressed="true">Ascending</a>
-    <a href="{{path('app_add_product')}}" role="button" aria-pressed="true">Descending</a>
+    <a href="{{path('app_sortASC_product')}}" role="button" aria-pressed="true">Ascending</a>
+    <a href="{{path('app_sortDESC_product')}}" role="button" aria-pressed="true">Descending</a>
   </div>
     <div class="right_element" style="display: inline-block;">
       <form action="{{ path('app_search_product')}}" method="post">
       <input type="search" placeholder="Search something" style="width: 300px;" name="search">
-      <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
     </form>
     </div>
 </div>

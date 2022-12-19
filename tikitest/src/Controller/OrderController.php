@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-
+use Doctrine\DBAL\Connection;
 #[IsGranted("ROLE_ADMIN")]
 #[Route('/order')]
 class OrderController extends AbstractController
@@ -67,13 +67,24 @@ class OrderController extends AbstractController
         ]);
     }
     #[Route('/search', name:'app_search_order')]
-    public function searchOrder(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository) : Response{
+    public function searchOrder(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository, ManagerRegistry $managerRegistry, Connection $connection) : Response{
         $user = $this->getUser();
         $search = $request->get('searchOrder');
+        $orders = $orderRepository->findAll();
         $orderByWaiting = $orderRepository->searchOrderByWaitingStatus($search);
         $orderByCompleted = $orderRepository->searchOrderByCompletedStatus($search);
         $orderByCanceled = $orderRepository->searchOrderByWCanceledStatus($search);
         $users = $userDetailRepository->findAll();
+
+
+        // search customer name
+        // $connection = $managerRegistry->getConnection();
+        // $query = 
+        $result = $connection->fetchAllAssociative("SELECT o.* FROM `user_detail` AS ud INNER JOIN `order` AS o ON ud.userid_id = o.cusid_id AND ud.name LIKE '$search'  ORDER BY o.id");
+        // $statement = $connection->prepare($query);
+        // $statement->bindValue("username", $search);
+        // $statement->execute();
+        // $result = $statement->fetch();
 
         if($orderByWaiting != null){
             return $this->render('order/index.html.twig', [
@@ -89,11 +100,18 @@ class OrderController extends AbstractController
             return $this->render('order/index.html.twig', [
                 'orders'=>$orderByCanceled, 'users'=>$users, 'user'=>$user
             ]); 
-        }else if ($orderByCanceled == null && $orderByCanceled == null && $orderByCompleted == null){
+        }else if($result!=null){
+            $this->addFlash('success', 'Customer name: '.$search.' founded');
+            return $this->render('order/orderSearchByName.html.twig', [
+                'orders'=>$result, 'users'=>$users, 'user'=>$user
+            ]);     
+        }
+        else if ($orderByCanceled == null && $orderByCanceled == null && $orderByCompleted == null && $result == null){
             $this->addFlash('notice', 'Order Not Found');
             return $this->render('order/index.html.twig', [
-                'orders'=>$orderByCanceled, 'users'=>$users, 'user'=>$user
+                'orders'=>$orders, 'users'=>$users, 'user'=>$user
             ]); 
+
         }
     }
 
@@ -143,4 +161,28 @@ class OrderController extends AbstractController
             return $this->redirectToRoute('app_order');
         }
     }
+
+    // #[Route('/searchcusname', name:'app_customer_order')]
+    // public function searchByCanceledOrderCustomerName(OrderRepository $orderRepository, Request $request, UserDetailRepository $userDetailRepository, ManagerRegistry $managerRegistry){
+    //     $user = $this->getUser();
+    //     $connection = $managerRegistry->getConnection();
+    //     $searchName = $request->get('searchOrder');
+        
+    //     $query = 
+    //     "SELECT o.* FROM `user_detail` AS ud INNER JOIN `order` AS o ON ud.userid_id = o.cusid_id AND ud.name = :username ORDER BY o.id";
+        
+    //     $statement = $connection->prepare($query);
+    //     $statement->bindValue("username", $searchName);
+    //     $statement->execute();
+    //     $result = $statement->fetchAll();
+    //     $users = $userDetailRepository->findAll();
+    //     if($result!=null){
+    //         return $this->render('order/index.html.twig', [
+    //             'orders'=>$result, 'users'=>$users, 'user'=>$user
+    //         ]); 
+    //     }else{
+    //         $this->addFlash('notice', 'Order Not Found');
+    //         return $this->redirectToRoute('app_order');
+    //     }
+    // }
 }

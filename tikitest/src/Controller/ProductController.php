@@ -172,4 +172,28 @@ class ProductController extends AbstractController
             ]);
         }
     }
+    #[Route('/sortASC', name:'app_sortASC_product')]
+    public function sortASC(ProductRepository $productRepository){
+        $user = $this->getUser();
+        $sortProductASC = $productRepository->sortProductASC();
+        if($sortProductASC != null){
+            return $this->render('product/index.html.twig', [
+                'products' => $sortProductASC, 'user'=>$user
+            ]);
+        }else{
+            return $this->redirectToRoute('app_product');
+        }
+    }
+    #[Route('/sortDESC', name:'app_sortDESC_product')]
+    public function sortDESC(ProductRepository $productRepository){
+        $user = $this->getUser();
+        $sortProductDESC = $productRepository->sortProductDESC();
+        if($sortProductDESC != null){
+            return $this->render('product/index.html.twig', [
+                'products' => $sortProductDESC, 'user'=>$user
+            ]);
+        }else{
+            return $this->redirectToRoute('app_product');
+        }
+    }
 }
