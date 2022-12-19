@@ -6,12 +6,70 @@
     <h1>Register</h1>
 
     {{ form_start(registrationForm) }}
+
+
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
+
+
+
        
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <button type="submit" class="btn btn-lg">Register</button>
+
+
+        {{ form_end(registrationForm) }}
+
+         {# <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 md-5">
+            <h3 class="mb-1 pb-2 pb-md-0 mb-1 md-5">Registration Form</h3>
+            <form>
+
+              <div class="row">
+                <div class="col-md-12 mb-1">
+
+                  <div class="form-outline">
+                    <input type="email" value="" name="email" id="inputEmail" class="form-control form-control-lg" value="" autocomplete="email" required autofocus/>
+                    
+                    <label class="form-label" for="firstName">Email</label>
+
+                  </div>
+
+                    <div class="form-outline">
+
+                    <input type="password" name="password" id="inputPassword"  class="form-control form-control-lg" value="" autocomplete="current-password" required/>
+                  
+                    <label class="form-label" for="inputPassword">Password</label>
+
+                
+                  </div>
+
+                </div>
+                
+              </div>
+
+              
+              
+            
+              <div class="mt-4 mb-3 pt-2 d-flex justify-content-center" >
+                 <button type="submit" class="btn btn-lg">Register</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> #}
+    
+
+
+ 
+
+
 {% endblock %}
