@@ -29,13 +29,15 @@ class UserController extends AbstractController
     #[Route('/detail/{id}', name: 'app_user_detail')]
     public function userDetail($id, UserRepository $userDetail): Response
     {   
-        $user = $userDetail->find($id);
-        $userid = $this->getUser();
+        $userd = $userDetail->find($id);
+               
+        $user = $this->getUser();
         
                     
         if($id!=null){
             return $this->render('user/userInfor.html.twig', [
-                'user'=>$userid    
+                'user'=>$user,
+                
             ]);
         }
         return $this->redirectToRoute('app_product');
@@ -45,50 +47,16 @@ class UserController extends AbstractController
     public function editUser(ProductRepository $repository, $id, ManagerRegistry $registry, Request $request): Response
     {
         $user = $repository->find($id);
-        if($user==null){
-            return $this->redirectToRoute('app_product');
-        }else{
-            $form = $this->createForm(UserType::class, $user);
-            $form->add('Submit', SubmitType::class);
-            $form->handleRequest($request);
-    
-            if($form->isSubmitted() && $form->isValid()){
-                $img1 = $form->get('image1')->getData();
-                $fileName1 = md5(uniqid()).'.'.$img1->guessExtension(); 
-                $img1->move($this->getParameter('product_image'), $fileName1); 
-                $user->setImage1($fileName1);
-    
-    
-                $img2 = $form->get('image2')->getData();
-                $fileName2 = md5(uniqid()).'.'.$img2->guessExtension(); 
-                $img2->move($this->getParameter('product_image'), $fileName2); 
-                $user->setImage2($fileName2);
-    
-    
-                $img3 = $form->get('image3')->getData();
-                $fileName3 = md5(uniqid()).'.'.$img3->guessExtension(); 
-                $img3->move($this->getParameter('product_image'), $fileName3); 
-                $user->setImage3($fileName3);
+        
 
-                $manager = $registry->getManager();
-    
-                $manager->persist($user);
-                $manager->flush();
-                $this->addFlash('success', 'Edit Product Successfully');
-                return $this->redirectToRoute('app_product');
-            }
-            
-            return $this->renderForm('product/detail.html.twig', [
-                'productForm' => $form,
-            ]);
-        }
+
     }
 
     #[Route('/view/{id}', name:'app_view_product')]
     public function viewProduct($id, ProductRepository $productRepository){
         $product = $productRepository->find($id);
         $userid= $this->getUser();
-        
+                
         if($product!=null){
             return $this->render('user/detailProduct.html.twig', [
                 'product'=>$product,
