@@ -1,20 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'userBase.html.twig' %}
 
 {% block title %}Hello CartController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/Greenwich/NGUYEN QUANG THAI/Semester 3/Project Web/Gihub/TikiTest/tikitest/tikitest/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/Greenwich/NGUYEN QUANG THAI/Semester 3/Project Web/Gihub/TikiTest/tikitest/tikitest/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% for cart in carts %} 
+    {% if cart.cusid.id == user.id  %}
+         <h5 class="" >{{cart.productid.name}}</h5>
+        <h5 class="" >{{cart.cusid.id}}</h5>
+    {% endif %} 
+  
+        
+    {% endfor %}
 {% endblock %}

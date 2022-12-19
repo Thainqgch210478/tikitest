@@ -10,19 +10,7 @@
                     {% for product in products %}
                         <div class="col-2 mt-2 mb-3 " >
                             
-                                {# <div class="items" style="background-color:white">
-                                
-                                    <div  >
-                                        <a href=" ">
-                                            <img  src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width='213' height='200'>
-                                        </a>
-                                    </div>
-                                    <div  style="font-size:18px"  >{{product.name}}</div>
-                                    <div  style="color:#ff424e ; font-size:28px">{{product.price}}đ</div>
-                                    <div  style="font-size:15px">{{product.description}}đ</div>
-                                    
-                                </div> #}
-
+                           
                                 <div class="card" style="width: 200px;height:338px; background-color:white">
                                      <a href="{{path('app_view_product', {'id': product.id })}}}}">
                                      <img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" class="card-img-top" alt="..." width='200' height='200'>
