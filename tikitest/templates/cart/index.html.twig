@@ -14,8 +14,8 @@
         <div class="card rounded-3 mb-4">
           <div class="card-body p-4">
             <div class="row d-flex justify-content-between align-items-center">
-              <div class="col-md-2 col-lg-2 col-xl-2">
-                <img
+              <div class="col-md-2 col-lg-2 col-xl-2" >
+                <img style="object-fit:contain; "
                   src="{{asset('imageAdmin/imgProduct/'~ cart.productid.image1)}}"
                   class="img-fluid rounded-3" alt="Cotton T-shirt">
               </div>
@@ -41,7 +41,7 @@
                 <h5 class="mb-0">{{cart.productid.price}}.000đ</h5>
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                {# <a href="{{path('delete_cart_product',{'id':cart.id})}}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a> #}
               </div>
             </div>
           </div>
@@ -52,7 +52,8 @@
 
         <div class="card  ">
           <div class="card-body d-flex justify-content-around">
-            <button type="button" class="btn-block btn-lg btn-warning d-flex">Pay</button>
+            
+            <a href="{{path('add_order')}}"><button type="button" class="btn-block btn-lg btn-warning d-flex">Pay</button></a>
             
             <button type="button" class="btn-block btn-lg btn-primary">Continue shopping</button>
           </div>

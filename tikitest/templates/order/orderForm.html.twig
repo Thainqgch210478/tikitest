@@ -1,0 +1,9 @@
+{# {% form_theme formAddProduct 'bootstrap_5_layout.html.twig'%} #}
+{% extends 'userBase.html.twig' %}
+{% block body %}
+
+<input type="hidden" id="custId" name="custId" value="{{user.id}}">
+{{form(formOrder)}}
+
+
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Cart;
+use App\Entity\Order;
+use App\Form\OrderType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProductRepository;
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CartController extends AbstractController
 {
@@ -51,4 +54,43 @@ class CartController extends AbstractController
        
     }    
 
+    #[Rotue('/cart/delete/{id}',name:'delete_cart_product')]
+    public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository){
+        $cart = $cartRepository->find($id);
+        
+        $manager = $Mregistry->getManager();
+
+        $manager -> remove($cart);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_cart');
+
+    }
+
+    #[Route('/pay', name:'add_order')]
+    public function addOrder(ManagerRegistry $managerRegistry,UserRepository $userR , Request $request){
+        $order = new Order;
+       
+        
+        $user = $this->getUser();
+        $form = $this->createForm(OrderType::class, $order);
+        $form->add('Submit', SubmitType::class);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()&&$form->isValid()){
+            $userid = $request->get('custId');
+            $order->setCusid($userid);
+            $manager = $managerRegistry->getManager();
+
+            $manager->persist($order);
+            $manager->flush();
+            $this->addFlash('success', 'Add Product Successfully');
+            return $this->redirectToRoute('app_cart');
+        }
+
+        return $this->renderForm('order/orderForm.html.twig', [
+            'formOrder'=>$form,
+             'user'=>$user
+        ]);
+    }
 }
