@@ -67,25 +67,25 @@ class CartController extends AbstractController
 
     }
 
-    #[Route('/pay', name:'add_order')]
-    public function addOrder(ManagerRegistry $managerRegistry,UserRepository $userR , Request $request){
+    #[Route('/pay/{id}', name:'add_order')]
+    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request){
         $order = new Order;
-       
-        
+               
         $user = $this->getUser();
         $form = $this->createForm(OrderType::class, $order);
         $form->add('Submit', SubmitType::class);
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
-            $userid = $request->get('custId');
-            $order->setCusid($userid);
+            // $userid = $request->get('custId');
+            $order->setCusid($user);
+            
             $manager = $managerRegistry->getManager();
 
             $manager->persist($order);
             $manager->flush();
             $this->addFlash('success', 'Add Product Successfully');
-            return $this->redirectToRoute('app_cart');
+            return $this->redirectToRoute('app_user_product');
         }
 
         return $this->renderForm('order/orderForm.html.twig', [
