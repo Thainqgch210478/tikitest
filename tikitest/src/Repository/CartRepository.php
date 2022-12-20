@@ -38,6 +38,13 @@ class CartRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getAllUserCart($cusid){
+        return $this->createQueryBuilder('c')
+        ->andWhere('c.cusid = :val')
+        ->setParameter('val', $cusid)
+        ->getQuery()
+        ->getResult();
+       }
 
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
