@@ -55,7 +55,7 @@ class CartController extends AbstractController
        
     }    
 
-    #[Rotue('/cart/delete/{id}',name:'delete_cart_product')]
+    #[Route('/cart/delete/{id}',name:'delete_cart_product')]
     public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository){
         $cart = $cartRepository->find($id);
         
