@@ -54,38 +54,44 @@ class CartController extends AbstractController
        
     }    
 
-    #[Rotue('/cart/delete/{id}',name:'delete_cart_product')]
-    public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository){
+    #[Route('/cart/delete/{id}',name:'delete_cart_product')]
+    public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository,ProductRepository $productRepository,Request $request){
         $cart = $cartRepository->find($id);
+        $user = $this->getUser();
+        $product = $productRepository->findAll();
         
         $manager = $Mregistry->getManager();
 
         $manager -> remove($cart);
         $manager->flush();
 
-        return $this->redirectToRoute('app_cart');
+        return $this->renderForm('user/detailProduct.html.twig', [
+            'carts' => $cart,
+            'user' => $user,
+            'product' => $product
+        ]);
 
     }
 
-    #[Route('/pay', name:'add_order')]
-    public function addOrder(ManagerRegistry $managerRegistry,UserRepository $userR , Request $request){
+    #[Route('/pay/{id}', name:'add_order')]
+    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request,CartRepository $cartRepository){
         $order = new Order;
-       
-        
+               
         $user = $this->getUser();
+        $carts = $cartRepository->findAll();
         $form = $this->createForm(OrderType::class, $order);
         $form->add('Submit', SubmitType::class);
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
-            $userid = $request->get('custId');
-            $order->setCusid($userid);
+            $order->setCusid($user);
+           
             $manager = $managerRegistry->getManager();
-
+            
             $manager->persist($order);
             $manager->flush();
             $this->addFlash('success', 'Add Product Successfully');
-            return $this->redirectToRoute('app_cart');
+            return $this->redirectToRoute('app_user_product');
         }
 
         return $this->renderForm('order/orderForm.html.twig', [
