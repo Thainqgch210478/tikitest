@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Entity\Order;
+use App\Entity\OrderDetails;
 use App\Form\OrderType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
+use Doctrine\DBAL\Connection;
 class CartController extends AbstractController
 {
     #[Route('/cart/{id}', name: 'app_cart')]
@@ -55,7 +56,11 @@ class CartController extends AbstractController
     }    
 
     #[Route('/cart/delete/{id}',name:'delete_cart_product')]
+<<<<<<< HEAD
     public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository,ProductRepository $productRepository,Request $request){
+=======
+    public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository){
+>>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
         $cart = $cartRepository->find($id);
         $user = $this->getUser();
         $product = $productRepository->findAll();
@@ -74,7 +79,11 @@ class CartController extends AbstractController
     }
 
     #[Route('/pay/{id}', name:'add_order')]
+<<<<<<< HEAD
     public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request,CartRepository $cartRepository){
+=======
+    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request, Connection $connection, CartRepository $cartRepository){
+>>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
         $order = new Order;
                
         $user = $this->getUser();
@@ -84,12 +93,42 @@ class CartController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
+<<<<<<< HEAD
             $order->setCusid($user);
            
+=======
+            // $userid = $request->get('custId');
+            $order->setCusid($user);
+            
+>>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
             $manager = $managerRegistry->getManager();
             
             $manager->persist($order);
             $manager->flush();
+
+            //ADD TO ORDER DETAIL AND DELETE ALL CART
+            $getLastestId = $connection->fetchAllAssociative("SELECT Max(id) FROM `order`");
+            $getAllUserCart = $cartRepository->getAllUserCart($order->getCusid());
+            //ADD TO ORDER DETAIL
+            for($i = 0; $i < count($getAllUserCart); $i++){
+                $orderDetai = new OrderDetails;
+                $pid = $getAllUserCart[$i]->getProductid();
+                $quantity = $getAllUserCart[$i]->getQuantity();
+                $orderDetai->setOrderid($order);
+                $orderDetai->setProductid($pid);
+                $orderDetai->setQuantity($quantity);
+
+                $managerCart = $managerRegistry->getManager();
+                $managerCart->persist($orderDetai);
+                $managerCart->flush();
+            }
+            //DELETE ALL USER CART
+            for($i = 0; $i < count($getAllUserCart); $i++){
+                $managerDeleteCart = $managerRegistry->getManager();
+                $managerDeleteCart->remove($getAllUserCart[$i]);
+                $managerDeleteCart->flush();
+            }
+
             $this->addFlash('success', 'Add Product Successfully');
             return $this->redirectToRoute('app_user_product');
         }
