@@ -9,6 +9,8 @@ use App\Form\OrderType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProductRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Validator\Constraints\Date;
+
 class CartController extends AbstractController
 {
     #[Route('/cart/{id}', name: 'app_cart')]
@@ -70,10 +74,10 @@ class CartController extends AbstractController
         $manager -> remove($cart);
         $manager->flush();
 
-        return $this->renderForm('user/detailProduct.html.twig', [
-            'carts' => $cart,
-            'user' => $user,
-            'product' => $product
+        $user = $this->getUser();
+        return $this->render('product/viewUserProduct.html.twig', [
+            'products' => $repository->findAll(),
+            'user'=> $user
         ]);
 
     }
@@ -86,18 +90,23 @@ class CartController extends AbstractController
                
         $user = $this->getUser();
         $carts = $cartRepository->findAll();
+        $paymentmethod = $request->get('paymentmethod');
+        $transportation = $request->get('transportation');
+        $date = $request->getFormat('date');
         $form = $this->createForm(OrderType::class, $order);
         $form->add('Submit', SubmitType::class);
         $form->handleRequest($request);
-        
+        $dateNow = new DateTime();
+        $dateNow->createFromFormat('Y-m-d', $date);
         if($form->isSubmitted()&&$form->isValid()){
             $order->setCusid($user);
              // $userid = $request->get('custId');
             $order->setCusid($user);
-            $order->setStatus("Pending");
-            $order->setPaymentmethod("Pending");
-            $order->setTransportationmethod("Pending");
-            
+            $order->setStatus("Waiting");
+            $order->setPaymentmethod($paymentmethod);
+            $order->setTransportationmethod($transportation);
+
+            $order->setDate( $dateNow);
 
             $manager = $managerRegistry->getManager();
             

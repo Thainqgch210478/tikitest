@@ -9,27 +9,28 @@
 </div>
     <div class="container wrap_input_result">
     {% set total = 0 %}
-    <span class="label_heading_order_infor">Ma Don Hang</span>
+    <span class="label_heading_order_infor">Order ID</span>
         <input type="text" name='categoryName' disabled required value="{{order.id}}" >
-    <span class="label_heading_order_infor">Ma Don Hang</span>
+    <span class="label_heading_order_infor">Date</span>
         <input type="text" name='categoryName' disabled required value="{{order.date|date('Y-m-d')}}" >
         {% for user in users %}
             {% if user.userid == order.cusid %}
-            <span class="label_heading_order_infor">Ma Don Hang</span>
+            <span class="label_heading_order_infor">Customer Name</span>
                 <input type="text" name='categoryName' disabled required value="{{user.name}}" >
                 {% set break = true %}
             {% endif %}
         {% endfor %}
-        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <span class="label_heading_order_infor">Payment Method</span>
         <input type="text" name='categoryName' disabled required value="{{order.paymentmethod}}" >
-        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <span class="label_heading_order_infor">Address</span>
         <input type="textarea" name='categoryName' disabled required value="{{order.address}}" >
-        <span class="label_heading_order_infor">Ma Don Hang</span>
-        <input type="text" name='categoryName' disabled required value="{{order.status}}" >
-        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <span class="label_heading_order_infor">Phonenumber</span>
         <input type="text" name='categoryName' disabled required value="{{order.phonenumber}}" >
-        <span class="label_heading_order_infor">Ma Don Hang</span>
+        <span class="label_heading_order_infor">Transportation Method</span>
         <input type="text" name='categoryName' disabled required value="{{order.transportationmethod}}" >
+        <span class="label_heading_order_infor">Status</span>
+        <input type="text" name='categoryName' disabled required value="{{order.status}}" >
+
         {% set var = 'checked' %}
         <span class="label_heading_order_infor">Update Status</span>
         <div class="wrap_update_status">

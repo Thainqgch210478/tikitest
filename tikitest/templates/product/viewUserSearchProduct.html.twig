@@ -1,0 +1,45 @@
+{% extends 'userBase.html.twig' %}
+
+
+
+{% block body %}
+
+<div class="col-center col-lg-8">	
+
+
+   
+    <div class="row mt-3">
+      <img class="d-block w-100" src="https://salt.tikicdn.com/cache/w1080/ts/banner/e8/7d/b8/a8de31b9105549cc784af2a3c8e2abfd.png.webp"  height="216px" alt="Second slide">
+    </div>
+		        <div class="row d-flex">
+                
+                    {% for product in products %}
+                     
+                        <div class="col  mt-2 mb-2   "   >
+                            
+                                <div class="card" style="width: 200px;height:350px; background-color:white">
+                                     <a href="{{path('app_view_product', {'id': product.id })}}}}">
+                                     <img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" class="card-img-top" alt="..." width='200' height='200'>
+                                     </a>
+                                    
+                                    <div class="card-body"  style="width: 138px;height:176px ">
+                                    <div style="font-size:14px;width: 176px;height:42px; display:box"> 
+                                    <h5 class="" >{{product.name}}</h5>
+                                    </div>
+                                    <div  style="color:#ff424e ; font-size:28px; width: 176px;height:42px;">{{product.price}}.000đ</div>
+                                    <div class="text-muted mb-0"  style="font-size:12px;width:176px;height:32px;" >{{product.description}}</div>
+                                   
+                                    {# <a href="#" class="btn btn-primary">Go somewhere</a> #}
+                                </div>
+                        </div>
+                           
+                        </div> 
+                        
+
+                    {% endfor %}
+                </div>
+                      		               
+</div>    
+
+ 
+{% endblock %}
