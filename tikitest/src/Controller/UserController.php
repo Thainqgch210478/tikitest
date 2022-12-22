@@ -47,7 +47,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_edit_user')]
-    public function editUser(ProductRepository $repository, $id, ManagerRegistry $registry, Request $request): Response
+    public function editUser(ProductRepository $repository, $id, ManagerRegistry $registry, Request $request)
     {
         $user = $repository->find($id);
         

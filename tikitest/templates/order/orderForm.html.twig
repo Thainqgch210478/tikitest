@@ -7,7 +7,25 @@
 
     <h1 class="text-center mb-5 mt-3">Payment From</h1>
     <input type="hidden" id="custId" name="custId" value="{{user.id}}">
-{{form(formOrder)}}
+	{{ form_start (formOrder) }}
+    <div class="mb3">
+    <span>Paymentmethod</span>
+		<select name="paymentmethod" required>
+			<option value="Payment By Cash">Payment By Cash</option>
+            <option value="Payment By Card ID">Payment By Card ID</option>
+		</select>
+    </div>
+    <div class="mb3">
+    <span>Paymentmethod</span>
+		<select name="transportation" required>
+			<option value="Standard">Standard: 3 - 7 days</option>
+            <option value="Express">Express: 1 - 2 days</option>
+		</select>
+    </div>
+    <input type="text" disabled value="{{ "now"|date("Y-m-d") }}" name="date">
+	{{ form_widget (formOrder) }}
+
+	{{ form_end (formOrder) }}
 </div>
 </div>
 
