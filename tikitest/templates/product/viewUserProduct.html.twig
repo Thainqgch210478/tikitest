@@ -11,13 +11,11 @@
     <div class="row mt-3">
       <img class="d-block w-100" src="https://salt.tikicdn.com/cache/w1080/ts/banner/e8/7d/b8/a8de31b9105549cc784af2a3c8e2abfd.png.webp"  height="216px" alt="Second slide">
     </div>
-           
-		        <div class="row ">
-
-                                    
+		        <div class="row d-flex">
+                
                     {% for product in products %}
                      
-                        <div class="col-3  mt-2 mb-2  "  >
+                        <div class="col  mt-2 mb-2   "   >
                             
                                 <div class="card" style="width: 200px;height:350px; background-color:white">
                                      <a href="{{path('app_view_product', {'id': product.id })}}}}">

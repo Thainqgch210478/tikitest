@@ -56,14 +56,14 @@ class CartController extends AbstractController
     }    
 
     #[Route('/cart/delete/{id}',name:'delete_cart_product')]
-<<<<<<< HEAD
-    public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository,ProductRepository $productRepository,Request $request){
-=======
+
+   
+
     public function deleteCart($id,ManagerRegistry $Mregistry, ProductRepository $repository,CartRepository $cartRepository){
->>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
+
         $cart = $cartRepository->find($id);
         $user = $this->getUser();
-        $product = $productRepository->findAll();
+        $product = $repository->findAll();
         
         $manager = $Mregistry->getManager();
 
@@ -79,11 +79,11 @@ class CartController extends AbstractController
     }
 
     #[Route('/pay/{id}', name:'add_order')]
-<<<<<<< HEAD
-    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request,CartRepository $cartRepository){
-=======
+
+    
+
     public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request, Connection $connection, CartRepository $cartRepository){
->>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
+
         $order = new Order;
                
         $user = $this->getUser();
@@ -93,14 +93,17 @@ class CartController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
-<<<<<<< HEAD
+
             $order->setCusid($user);
            
-=======
+
             // $userid = $request->get('custId');
             $order->setCusid($user);
+            $order->setStatus("Pending");
+            $order->setPaymentmethod("Pending");
+            $order->setTransportationmethod("Pending");
             
->>>>>>> 984c2edfe7352ba2af872d8053f40c7c62f9babe
+
             $manager = $managerRegistry->getManager();
             
             $manager->persist($order);
