@@ -1,5 +1,14 @@
+{% form_theme userForm 'bootstrap_5_layout.html.twig'%}
+
 {% extends 'userBase.html.twig' %}
 
 {% block body %}
+<div class="col-2"></div>
+<div class="col-8  mt-4 mb-4 " >
+<div class="col-5 card px-5 rouned-5" >
+<h1 class="mt-4 mb-5">Enter information for the first time</h1>
 {{form(userForm)}}
+</div>
+</div>
+</div>
 {% endblock %}

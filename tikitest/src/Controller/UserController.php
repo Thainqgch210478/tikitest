@@ -65,13 +65,15 @@ class UserController extends AbstractController
                 $manager = $registry->getManager();
                 $manager->persist($userT);
                 $manager->flush();
-
+                return $this->render('user/userInfor.html.twig', [
+                    'user' => $user,
+                    'userDetail' => $userd
+                    
+                ]);
                 
             }
             // $userd->setName($nameD);
-            
-             }
-             $this->addFlash('success', 'Add Product Successfully');
+            $this->addFlash('success', 'Add Product Successfully');
                 return $this->renderForm('user_detail/userEdit.html.twig', [
                     'user' => $user,
                     // 'userid' => $userd,
@@ -79,6 +81,8 @@ class UserController extends AbstractController
                     'userDetail' => $userd
 
                 ]);
+             }
+             
     }
 
 
