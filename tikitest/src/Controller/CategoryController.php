@@ -63,7 +63,7 @@ class CategoryController extends AbstractController
 
             $manager->persist($category);
             $manager->flush();
-            $this->addFlash('notice', 'Edit Todo Succesfully !');
+            $this->addFlash('notice', 'Edit Category Succesfully !');
             return $this->redirectToRoute('app_category');
         }
         return $this->render('category/editCategory.html.twig', [
