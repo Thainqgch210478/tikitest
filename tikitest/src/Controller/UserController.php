@@ -11,7 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+
+#[IsGranted("ROLE_USER")]
 #[Route('user')]
 class UserController extends AbstractController
 {
@@ -66,7 +69,20 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_product');
     }
 
-
+    #[Route('/search', name:'app_user_search_product')]
+    public function searchProduct(ProductRepository $productRepository, Request $request){
+        $productName = $request->get('searchProduct');
+        $product = $productRepository->searchProductByName($productName);
+        $userid= $this->getUser();
+                
+        if($product!=null){
+            return $this->render('product/viewUserSearchProduct.html.twig', [
+                'products' => $product,
+                'user'=> $userid
+            ]);
+        }
+        return $this->redirectToRoute('app_user_product');
+    }
     
 
 }
