@@ -80,8 +80,6 @@ class CartController extends AbstractController
 
     #[Route('/pay/{id}', name:'add_order')]
 
-    
-
     public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request, Connection $connection, CartRepository $cartRepository){
 
         $order = new Order;
@@ -93,11 +91,8 @@ class CartController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted()&&$form->isValid()){
-
             $order->setCusid($user);
-           
-
-            // $userid = $request->get('custId');
+             // $userid = $request->get('custId');
             $order->setCusid($user);
             $order->setStatus("Pending");
             $order->setPaymentmethod("Pending");

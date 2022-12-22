@@ -16,8 +16,12 @@
             {# <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> #}
             <div class="d-flex justify-content-center mb-2">
-              
-              <a href="{{path('app_edit_user',{'id':user.id})}}"><button type="button" class="btn btn-primary">Edit</button></a>
+              {# <p>{{user.userDetail.id}}</p> #}
+              {% if user.userDetail.name == null %}
+                 <a href="{{path('app_edit_user',{'id':user.id})}}"><button type="button" class="btn btn-primary">Edit</button></a>
+              {% endif %}
+
+             
               {# <button type="button" class="btn btn-outline-primary ms-1">Message</button> #}
             </div>
           </div>
@@ -29,11 +33,16 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
+                <p class="mb-0">Name</p>
               </div>
               <div class="col-sm-9">
+
+                           {% set usernames = user.email | split("@") %}
                            
-                <p class="text-muted mb-0">{{user.userDetail.name}}</p>
+                              <p class="text-muted mb-0">{{usernames[0]}}</p>
+                {# <p class="text-muted mb-0">{{user.userDetail.name}}</p> #}
+                           
+                
               </div>
             </div>
             <hr>
@@ -51,7 +60,8 @@
                 <p class="mb-0">Date of Birth</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{user.userDetail.dob | date('Y/m/d')}}</p>
+              {# {{user.userDetail.dob | date('Y/m/d')}} #}
+                <p class="text-muted mb-0"> 12/8/2002</p>
               </div>
             </div>
           
@@ -61,7 +71,8 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{user.userDetail.address}}</p>
+                <p class="text-muted mb-0">hehe</p>
+                {# <p class="text-muted mb-0">{{user.userDetail.address}}</p> #}
               </div>
             </div>
                          
