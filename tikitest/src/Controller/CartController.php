@@ -37,25 +37,50 @@ class CartController extends AbstractController
     }
 
 
-    #[Route('/cart/add/{id}', name: 'add_cart_product')]
-    public function addProduct(ManagerRegistry $managerRegistry, Request $request,$id,ProductRepository $productR )
-    {   $cart = new Cart;
+    #[Route('/cart/add/', name: 'add_cart_product')]
+    public function addProduct(ManagerRegistry $managerRegistry,ProductRepository $productR, Request $request, CartRepository $cartRepository)
+    {   
+        
+        $cart = new Cart;
         $user = $this->getUser();
-        $product = $productR->find($id); 
-
-      
+        $getPid = $request->get('pid');
+        $product = $productR->find($getPid); 
+        $getQuantity = $request->get('quantity');
         $cart->setCusid($user);
         $cart->setProductid($product);
-        $cart->setQuantity(1);
-        
-        $manager = $managerRegistry->getManager();
-        $manager->persist($cart);
-        $manager->flush();
-        return $this->renderForm('user/detailProduct.html.twig', [
-            'carts' => $cart,
-            'user' => $user,
-            'product' => $product
-        ]);
+        $cart->setQuantity($getQuantity);
+        $isExist = false;
+        $uid = $cart->getCusid();
+        $isProductExist = $cartRepository->getPidExist($getPid, $uid);
+
+        if($getQuantity > $product->getQuantity()){
+            $this->addFlash('error', 'Quantity is out of stock');
+            return $this->renderForm('user/detailProduct.html.twig', [
+                'carts' => $cart,
+                'user' => $user,
+                'product' => $product
+            ]);
+        }
+        else if(count($isProductExist)>0){
+            $this->addFlash('error', 'Product has been existed in the stock');
+            return $this->renderForm('user/detailProduct.html.twig', [
+                'carts' => $cart,
+                'user' => $user,
+                'product' => $product
+            ]);
+        }
+        else{
+            $manager = $managerRegistry->getManager();
+            $manager->persist($cart);
+            $manager->flush();
+            return $this->renderForm('user/detailProduct.html.twig', [
+                'carts' => $cart,
+                'user' => $user,
+                'product' => $product
+            ]);
+        }
+
+
        
     }    
 
@@ -84,7 +109,7 @@ class CartController extends AbstractController
 
     #[Route('/pay/{id}', name:'add_order')]
 
-    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request, Connection $connection, CartRepository $cartRepository){
+    public function addOrder($id,ManagerRegistry $managerRegistry,UserRepository $userR , Request $request, Connection $connection, CartRepository $cartRepository, ProductRepository $productRepository){
 
         $order = new Order;
                
@@ -129,6 +154,19 @@ class CartController extends AbstractController
                 $managerCart->persist($orderDetai);
                 $managerCart->flush();
             }
+            //UPDATE PRODUCT QUANTITY
+            for($i = 0; $i < count($getAllUserCart); $i++){
+                $getProduct = $productRepository->find($getAllUserCart[$i]->getProductid());
+                $currentQuantity = $getProduct->getQuantity();
+                $newQuantity = $currentQuantity- $getAllUserCart[$i]->getQuantity();
+                
+                $getProduct->setQuantity($newQuantity);
+
+                $managerUpdateQuantity = $managerRegistry->getManager();
+                $managerUpdateQuantity->persist($getProduct);
+                $managerUpdateQuantity->flush();
+            }
+
             //DELETE ALL USER CART
             for($i = 0; $i < count($getAllUserCart); $i++){
                 $managerDeleteCart = $managerRegistry->getManager();

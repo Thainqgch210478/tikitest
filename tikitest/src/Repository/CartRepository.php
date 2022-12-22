@@ -45,7 +45,14 @@ class CartRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
        }
-
+    public function getPidExist($pid, $uid){
+        return $this->createQueryBuilder('c')
+        ->where('c.productid ='. $pid)
+        ->andWhere('c.cusid = :val')
+        ->setParameter('val', $uid)
+        ->getQuery()
+        ->getResult();
+    }
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */

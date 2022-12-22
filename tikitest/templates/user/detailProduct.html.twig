@@ -1,7 +1,18 @@
 
 {% extends 'userBase.html.twig' %}
 {% block body %}
-
+            {% for flash_message in app.session.flashBag.get('error') %}
+                <div class="alert alert-danger">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="alert alert-success">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
         <div class="container mt-3 mb-5  col-10 wrapProductDetail ">
                 <div class="row  ">
                        
@@ -39,8 +50,11 @@
                                         <h2 class="mt-2 mb-5 ms-5" style="font-size:16px; margin:0px 0px 0px 4px">{{product.description}}</h2>
                                 </div> 
                                 
-
-                                <a href="{{path('add_cart_product',{'id':product.id})}}" class="btn btn-primary">Add to cart</a>
+                                <form action="{{path('add_cart_product')}}" method="post">
+                                        <input type="text" hidden value="{{product.id}}" name="pid">
+                                        <input type="number" value="1" name="quantity">
+                                        <input type="submit" value="Add to cart" sytle="display: block;">
+                                </form>
                                
                         </div>
 
