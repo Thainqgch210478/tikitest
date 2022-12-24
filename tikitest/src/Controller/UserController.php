@@ -96,9 +96,11 @@ class UserController extends AbstractController
         $user = $this->getUser();
         $orders = $orderRepository->findAll();
         $users = $userDetailRepository->findAll();
+        $userd = $userR->findAll();
         $userz = $userR->find($id);
         return $this->render('user_detail/viewOrder.html.twig', [
-            'orders'=>$orders, 'users'=>$users, 'user'=>$user, 'userz'=>$userz
+            'orders'=>$orders, 'users'=>$users, 'user'=>$user, 'userz'=>$userz, 
+            'userds'=>$userd
         ]);
     }
             

@@ -17,6 +17,7 @@
       <th scope="col">Payment Method</th>
       <th scope="col">Total</th>
       <th scope="col">Status</th>
+      
       {# <th scope="col">Menu</th> #}
     </tr>
   </thead>
@@ -51,10 +52,20 @@
        {% set total_2 = total + total_2  %}
       <td>
       
-         {% for user in users %}
-            {{user.name}}
+        
+         
+          {% for user in users %}
+          {% if  user.userid ==  userz %}
+                
+           {{user.name}}
             {% set break = true %}
+           {% endif %}
           {% endfor %}
+
+          
+        
+         
+         
       </td>
       <td>{{order.paymentmethod}}</td>
       <td>{{total}}.000VND</td>
