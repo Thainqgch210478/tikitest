@@ -17,7 +17,7 @@
       <th scope="col">Payment Method</th>
       <th scope="col">Total</th>
       <th scope="col">Status</th>
-      <th scope="col">Menu</th>
+      {# <th scope="col">Menu</th> #}
     </tr>
   </thead>
   <tbody>
@@ -59,9 +59,9 @@
       <td>{{order.paymentmethod}}</td>
       <td>{{total}}.000VND</td>
       <td>{{order.status}}</td>
-      <td>
+      {# <td>
         <a href="{{path('app_edit_order', {'id': order.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
-      </td>
+      </td> #}
     </tr>
 
     {% endif %}
