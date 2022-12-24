@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\UserDetail;
 use App\Form\UserType;
+use App\Repository\OrderDetailsRepository;
 use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProductRepository;
@@ -89,22 +90,31 @@ class UserController extends AbstractController
 
 
    
-
-    #[Route('/myorder/{id}', name: 'user_order')]
-    public function myOrder($id,OrderRepository $orderRepository, ManagerRegistry $managerRegistry, UserDetailRepository $userDetailRepository,UserRepository $userR): Response
+    
+    #[Route('/myorder', name: 'user_view_order')]
+    public function viewmyorder(OrderRepository $orderRepository, UserDetailRepository $userDetailRepository, UserRepository $userRepository, Request $request)
     {
         $user = $this->getUser();
-        $orders = $orderRepository->findAll();
+        $search = $request->get('uid');
+        $orders = $orderRepository->searchOrderByCusid($search);
         $users = $userDetailRepository->findAll();
-        $userd = $userR->findAll();
-        $userz = $userR->find($id);
-        return $this->render('user_detail/viewOrder.html.twig', [
-            'orders'=>$orders, 'users'=>$users, 'user'=>$user, 'userz'=>$userz, 
-            'userds'=>$userd
+            return $this->render('user_detail/userOrderDetail.html.twig', [
+                'orders'=>$orders, 'users'=>$users, 'user'=>$user
+            ]); 
+        
+    }
+    #[Route('/myorder/detail/{id}', name: 'user_view_order_detail')]
+    public function edit(OrderRepository $orderRepository, ManagerRegistry $managerRegistry, UserDetailRepository $userDetailRepository, $id, OrderDetailsRepository $details, ProductRepository $productRepository, Request $request): Response
+    {
+        $user = $this->getUser();
+        $order = $orderRepository->find($id);
+        $orderDetails = $details->findAll();
+        $users = $userDetailRepository->findAll();
+        $products = $productRepository->findAll();
+        return $this->render('user_detail/userOrderInfor.html.twig', [
+            'order'=>$order, 'users'=>$users, 'orderDetail'=>$orderDetails, 'products'=>$products, 'user'=>$user
         ]);
     }
-            
-
 
         
        

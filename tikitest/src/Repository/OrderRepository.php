@@ -66,6 +66,13 @@ class OrderRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
        }
+       public function searchOrderByCusid($uid){
+        return $this->createQueryBuilder('o')
+        ->andWhere('o.cusid = :val')
+        ->setParameter('val', $uid)
+        ->getQuery()
+        ->getResult();
+       }
    /**
     * @return Order[] Returns an array of Order objects
     */
