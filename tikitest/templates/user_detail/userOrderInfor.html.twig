@@ -1,0 +1,108 @@
+{% extends "userBase.html.twig" %}
+{% block body %}
+<div class="container wrap_form_and_orderDetail">
+
+  <div class="wrap_form">
+  
+  <div class="wrap_order_infor">
+
+</div>
+    <div class="container wrap_input_result" style="display: flex;">
+    <div class="wrapOrderInfor" style="width: 30%; display: inline-block; margin-right: 20px;">
+      {% set total = 0 %}
+          <h1>Order #{{order.id}} </h1>
+          <div class="wrap-textorder">
+          <span class="label_heading_order_infor">Date</span>
+              <input type="text" name='categoryName' disabled required value="{{order.date|date('Y-m-d')}}" style="width: 100%;">
+          </div>
+          <div class="wrap-textorder">
+              {% for user in users %}
+                  {% if user.userid == order.cusid %}
+                  <span class="label_heading_order_infor">Customer Name</span>
+                      <input type="text" name='categoryName' disabled required value="{{user.name}}" style="width: 100%;">
+                      {% set break = true %}
+                  {% endif %}
+              {% endfor %}
+          </div>
+          <div class="wrap-textorder">
+                  <span class="label_heading_order_infor">Payment Method</span>
+              <input type="text" name='categoryName' disabled required value="{{order.paymentmethod}}" style="width: 100%;">
+          </div>
+
+          <div class="wrap-textorder">
+                  <span class="label_heading_order_infor">Address</span>
+              <input type="textarea" name='categoryName' disabled required value="{{order.address}}" style="width: 100%;">
+          </div>
+
+          <div class="wrap-textorder">
+                  <span class="label_heading_order_infor">Phonenumber</span>
+              <input type="text" name='categoryName' disabled required value="{{order.phonenumber}}" style="width: 100%;">
+          </div>
+
+          <div class="wrap-textorder">
+                  <span class="label_heading_order_infor">Transportation Method</span>
+              <input type="text" name='categoryName' disabled required value="{{order.transportationmethod}}" style="width: 100%;">
+          </div>
+
+          <div class="wrap-textorder">
+                  <span class="label_heading_order_infor">Status</span>
+              <input type="text" name='categoryName' disabled required value="{{order.status}}" style="width: 100%;">
+          </div>
+              {% set var = 'checked' %}
+    </div>
+<div class="wrapDetailOrderProduct" style="width: 70%; display: inline-block; margin: auto 0; padding: 10px 25px 10px; border: 2px solid #ccc;">
+<div class="wrapHeaderOrderDetail">
+    <i class="fa-solid fa-cart-shopping"></i>
+  <span class="listOrderDetailHeading">Order Details</span>
+  </div>
+
+      <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Product Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% set count = 0 %}
+        {% for orderdetail in orderDetail %}
+        {% if orderdetail.orderid.id == order.id %}
+            {% set count  = count  + 1 %}
+            {% set total = 0 %}
+          <tr>
+            <td>{{count}}</td>
+            {% for product in products %}
+              {% if product.id == orderdetail.productid.id  %}
+              <td><img src="{{asset('imageAdmin/imgProduct/'~ product.image1)}}" alt="" srcset="" width="60px" height="60px"></td>
+              <td>{{product.name}}</td>
+              <td>{{orderdetail.quantity}}</td>
+              <td>{{product.price * orderdetail.quantity}}</td>
+              {% set break = true %}
+              {% endif %}
+            {% endfor %}
+
+          </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="wrap_total_order">
+    <span class="total_heading">Total Price</span>
+          {% for orderDetail in order.orderDetails %}
+            {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+          {% endfor %}
+          <span class="sum">{{total}} VND</span>
+    </div>
+    </div>
+  
+</div>
+    </div>
+    
+
+
+  </div>
+
+{% endblock %}

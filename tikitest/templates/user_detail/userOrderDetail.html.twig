@@ -1,0 +1,73 @@
+{% extends 'userBase.html.twig' %}
+{% block body %}
+<div class="container">
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="alert alert-danger">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
+            {% for flash_message in app.session.flashBag.get('success') %}
+                <div class="alert alert-success">
+                <span>{{ flash_message }}</span>
+                <i class="fa-solid fa-xmark" onclick="this.parentElement.style.display='none';"></i>
+                </div>
+            {% endfor %}
+<div class="header-control">
+    
+</div>
+<div class="order-control" style="    display: flex;
+    justify-content: space-between;">
+</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">Created</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Payment Method</th>
+      <th scope="col">Total</th>
+      <th scope="col">Status</th>
+      <th scope="col">Menu</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set Total2 = 0 %}
+    {% set Pending = 0 %}
+    {% set Complete = 0 %}
+    {% set Waiting = 0 %}
+    {% for order in orders %}
+    {% set total = 0 %}
+    <tr>
+      <td>{{order.id}}</td>
+      <td>
+      
+      {{order.date|date('Y-m-d')}}
+      
+      </td>
+      {% for orderDetail in order.orderDetails %}
+        {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+       
+      {% endfor %}
+      <td>
+        {% for user in users %}
+          {% if order.cusid == user.userid %}
+            {{user.name}}
+            {% set break = true %}
+          {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{order.paymentmethod}}</td>
+      <td>{{total}} VND</td>
+      <td>{{order.status}}</td>
+      <td>
+        <a href="{{path('user_view_order_detail', {'id': order.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+{% endblock %}

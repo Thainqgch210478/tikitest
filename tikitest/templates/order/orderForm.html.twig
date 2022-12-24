@@ -8,21 +8,21 @@
     <h1 class="text-center mb-5 mt-3">Payment From</h1>
     <input type="hidden" id="custId" name="custId" value="{{user.id}}">
 	{{ form_start (formOrder) }}
-    <div class="mb3">
-    <span>Paymentmethod</span>
-		<select name="paymentmethod" required>
+    <div class="mb3" sytle="display:flex; ">
+    <span style="display: block; padding:10px 0px;">Paymentmethod</span>
+		<select name="paymentmethod" required style="width: 100%; height: 35px;">
 			<option value="Payment By Cash">Payment By Cash</option>
             <option value="Payment By Card ID">Payment By Card ID</option>
 		</select>
     </div>
-    <div class="mb3">
-    <span>Paymentmethod</span>
-		<select name="transportation" required>
-			<option value="Standard">Standard: 3 - 7 days</option>
+    <div class="mb3"sytle="display:flex; margin-bottom: 5px;">
+    <span style="display: block; padding: 10px 0px;">Transportation</span>
+		<select name="transportation" required style="width: 100%; height: 35px;">
+			<option value="Standard" >Standard: 3 - 7 days</option>
             <option value="Express">Express: 1 - 2 days</option>
 		</select>
     </div>
-    <input type="text" disabled value="{{ "now"|date("Y-m-d") }}" name="date">
+    <input type="text" disabled value="{{ "now"|date("Y-m-d") }}" name="date" hidden style="width: 100%;">
 	{{ form_widget (formOrder) }}
 
 	{{ form_end (formOrder) }}

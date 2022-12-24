@@ -79,7 +79,10 @@
                                      
             </div>
          </div>
-          <a href="{{path('user_order',{'id':user.id})}}"><button type="button" class="btn btn-primary">My oder</button></a>
+          <form action="{{ path ('user_view_order')}}" method="post">
+          <input type="text" name='uid' placeholder='Add Category Name' required sytle="display: block;" hidden value="{{user.id}}">
+          <input type="submit" value="My Order" sytle="display: block;">
+          </form>
         </div>
        
         </div>
