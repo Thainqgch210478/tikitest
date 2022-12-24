@@ -1,0 +1,90 @@
+{% extends "userBase.html.twig" %}
+
+{% block body %}
+<div class="container">
+                       
+<div class="header-control">
+    
+</div>
+
+</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">Created</th>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Payment Method</th>
+      <th scope="col">Total</th>
+      <th scope="col">Status</th>
+      <th scope="col">Menu</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% set total_2 = 0 %}
+
+      {% set Pending = 0 %}
+      {% set Waiting = 0 %}
+      {% set Completed = 0 %}
+  {% for order in orders %}
+ 
+  
+ {% if order.cusid == userz %}
+    {% set total = 0 %}
+
+    <tr>
+      <td>{{order.id}}</td>
+      <td>
+      
+      {{order.date|date('Y-m-d')}}
+      
+      </td>
+      {% for orderDetail in order.orderDetails %}
+        {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+        
+      {% endfor %}
+
+      {% if order.status =='Pending' %} {% set Pending = Pending + 1 %} {% endif %}
+      {% if order.status =='Waiting' %} {% set Waiting = Waiting + 1 %} {% endif %}
+      {% if order.status =='Completed' %} {% set Completed = Completed + 1 %} {% endif %}
+
+       {% set total_2 = total + total_2  %}
+      <td>
+      
+         {% for user in users %}
+            {{user.name}}
+            {% set break = true %}
+          {% endfor %}
+      </td>
+      <td>{{order.paymentmethod}}</td>
+      <td>{{total}}.000VND</td>
+      <td>{{order.status}}</td>
+      <td>
+        <a href="{{path('app_edit_order', {'id': order.id })}}}}"><i class="fa-regular fa-pen-to-square icon-product"></i></a>
+      </td>
+    </tr>
+
+    {% endif %}
+    {% endfor %}
+
+    <tr>
+  <td> </td>
+<td></td>
+<td> </td>
+<td></td>
+<td><p>{{total_2}}.000VND</p></td>
+<td>
+  Pending: {{Pending}}
+  Waiting: {{Waiting}}
+  Completed: {{Completed}}
+</td>
+</tr>
+
+  </tbody>
+</table>
+
+ 
+ 
+</div>
+
+{% endblock %}

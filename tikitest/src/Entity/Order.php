@@ -42,6 +42,11 @@ class Order
     #[ORM\JoinColumn(nullable: false)]
     private ?User $cusid = null;
 
+    public function __toString()
+    {
+        // return $this->$cusid;
+    }
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -165,4 +170,6 @@ class Order
 
         return $this;
     }
+
+    
 }

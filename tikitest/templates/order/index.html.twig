@@ -43,6 +43,11 @@
     </tr>
   </thead>
   <tbody>
+    {% set Total2 = 0 %}
+    {% set Pending = 0 %}
+    {% set Complete = 0 %}
+    {% set Waiting = 0 %}
+
     {% for order in orders %}
     {% set total = 0 %}
     <tr>
@@ -54,6 +59,7 @@
       </td>
       {% for orderDetail in order.orderDetails %}
         {% set total = total +  orderDetail.productid.price * orderDetail.quantity %}
+        {{Total2 += total}}
       {% endfor %}
       <td>
         {% for user in users %}
@@ -73,6 +79,7 @@
     {% endfor %}
   </tbody>
 </table>
+<div>{{Total2}}</div>
 </div>
 
 {% endblock %}

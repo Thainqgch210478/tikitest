@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\UserDetail;
 use App\Form\UserType;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserDetailRepository;
@@ -79,6 +80,7 @@ class UserController extends AbstractController
                     // 'userid' => $userd,
                     'userForm'=> $form,
                     'userDetail' => $userd
+                    
 
                 ]);
              }
@@ -86,7 +88,19 @@ class UserController extends AbstractController
     }
 
 
+   
 
+    #[Route('/myorder/{id}', name: 'user_order')]
+    public function myOrder($id,OrderRepository $orderRepository, ManagerRegistry $managerRegistry, UserDetailRepository $userDetailRepository,UserRepository $userR): Response
+    {
+        $user = $this->getUser();
+        $orders = $orderRepository->findAll();
+        $users = $userDetailRepository->findAll();
+        $userz = $userR->find($id);
+        return $this->render('user_detail/viewOrder.html.twig', [
+            'orders'=>$orders, 'users'=>$users, 'user'=>$user, 'userz'=>$userz
+        ]);
+    }
             
 
 
